@@ -1,0 +1,32 @@
+<? $quoteId = $block->getQuoteId() ?>
+<? if ($block->isEnabled()): ?>
+    <div id="block-cartid" class="block" data-mage-init='{"collapsible":{"openedState": "active", "saveState": true}}'>
+        <div class="title" data-role="title" aria-controls="block-cartid" role="tab" aria-selected="false"
+             aria-expanded="false">
+            <strong id="block-cartid-heading" role="heading" aria-level="2">Cart ID</strong>
+        </div>
+        <div id="block-cart-widget" data-bind="scope:'block-cart-widget'" class="content" data-role="content"
+             aria-labelledby="block-cardid-heading">
+            <div class="block">
+                <input id="cart-id" disabled="disabled" value="<?= $quoteId ?>" type="text" style="background-color: #f5f5f5" />
+                <br>
+                <button style="float: right; margin: 10px 0 20px 0;"
+                        class="small right"
+                        onclick="copyToClipboard()"
+                >Copy</button>
+                <script>
+                    function copyToClipboard() {
+                        var dummy = document.createElement("textarea");
+                        var id = document.getElementById('cart-id').value;
+                        document.body.appendChild(dummy);
+                        dummy.value = id;
+                        dummy.select();
+                        document.execCommand("copy");
+                        document.body.removeChild(dummy);
+                        alert(id + " copied to clipboard.");
+                    }
+                </script>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
