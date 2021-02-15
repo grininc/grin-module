@@ -1,0 +1,12 @@
+"Only filtering by productId is supported","Only filtering by productId is supported"
+"Only ""eq"" and ""in"" condition types are supported","Only ""eq"" and ""in"" condition types are supported"
+"Please define at least one product filter","Please define at least one product filter"
+Copy,Copy
+"Grin Influencer Shipping","Grin Influencer Shipping"
+Enabled,Enabled
+"Grin (Influencer marketing)","Grin (Influencer marketing)"
+"Affiliate SDK","Affiliate SDK"
+Enable,Enable
+"Cart widget","Cart widget"
+Webhooks,Webhooks
+"Webhook authentication token","Webhook authentication token"

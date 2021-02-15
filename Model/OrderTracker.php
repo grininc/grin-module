@@ -1,14 +1,10 @@
 <?php
 
-namespace Grin\GrinModule\Event\State;
+declare(strict_types=1);
 
-/**
- * Class StateTracker
- * Add Hoc solution to track model state
- *
- * @package Grin\GrinModule\Event\State
- */
-abstract class StateTracker
+namespace Grin\GrinModule\Model;
+
+class OrderTracker
 {
     /**
      * @var boolean

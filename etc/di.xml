@@ -1,4 +1,16 @@
 <?xml version="1.0" ?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="Grin\GrinModule\Api\StockItemsInterface" type="Grin\GrinModule\Api\StockItems"/>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Grin\GrinModule\Api\StockItemsInterface"
+                type="Grin\GrinModule\Model\StockItems"/>
+    <type name="Grin\GrinModule\Model\SystemConfig">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="grin_script_active" xsi:type="string">grin_integration/scripts/active</item>
+                <item name="grin_cart_widget_active" xsi:type="string">grin_integration/cartwidget/active</item>
+                <item name="grin_webhook_active" xsi:type="string">grin_integration/webhook/active</item>
+                <item name="grin_webhook_token" xsi:type="string">grin_integration/webhook/token</item>
+            </argument>
+        </arguments>
+    </type>
 </config>

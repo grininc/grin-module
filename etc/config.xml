@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <carriers>
             <grininfluencershipping>
@@ -8,13 +9,14 @@
                 <model>Grin\GrinModule\Model\Carrier\Method</model>
                 <name>Free</name>
                 <title>Grin Influencer Shipping</title>
-                <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.</specificerrmsg>
+                <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.
+                </specificerrmsg>
             </grininfluencershipping>
         </carriers>
-        <grinaffiliate>
+        <grin_integration>
             <scripts>
-                <enable>1</enable>
+                <active>1</active>
             </scripts>
-        </grinaffiliate>
+        </grin_integration>
     </default>
 </config>

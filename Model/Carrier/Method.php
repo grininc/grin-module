@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Grin\GrinModule\Model\Carrier;
 
 use Magento\Authorization\Model\UserContextInterface;
@@ -17,38 +19,39 @@ use Magento\Shipping\Model\Carrier\CarrierInterface;
 use Magento\Backend\App\Area\FrontNameResolver;
 use Magento\Framework\App\Action\Context;
 
-
 class Method extends AbstractCarrier implements CarrierInterface
 {
     /**
      * Shipment carrier code
      */
-    const CODE = 'grininfluencershipping';
+    public const CODE = 'grininfluencershipping';
 
     /**
      * @var string
      */
+    // @codingStandardsIgnoreLine
     protected $_code = self::CODE;
 
     /**
      * @var bool
      */
+    // @codingStandardsIgnoreLine
     protected $_isFixed = true;
 
     /**
      * @var ResultFactory
      */
-    protected $rateResultFactory;
+    private $rateResultFactory;
 
     /**
      * @var MethodFactory
      */
-    protected $rateMethodFactory;
+    private $rateMethodFactory;
 
     /**
      * @var State
      */
-    protected $appState;
+    private $appState;
 
     /**
      * @var Context
@@ -57,44 +60,41 @@ class Method extends AbstractCarrier implements CarrierInterface
 
     /**
      * @param ScopeConfigInterface $scopeConfig
-     * @param ErrorFactory         $rateErrorFactory
-     * @param LoggerInterface      $logger
-     * @param ResultFactory        $rateResultFactory
-     * @param MethodFactory        $rateMethodFactory
-     * @param State                $appState
+     * @param ErrorFactory $rateErrorFactory
+     * @param LoggerInterface $logger
+     * @param ResultFactory $rateResultFactory
+     * @param MethodFactory $rateMethodFactory
+     * @param State $appState
      * @param UserContextInterface $context
-     * @param array                $data
+     * @param array $data
      */
     public function __construct(
-        ScopeConfigInterface    $scopeConfig,
-        ErrorFactory            $rateErrorFactory,
-        LoggerInterface         $logger,
-        ResultFactory           $rateResultFactory,
-        MethodFactory           $rateMethodFactory,
-        State                   $appState,
-        UserContextInterface    $context,
-        array                   $data = []
+        ScopeConfigInterface $scopeConfig,
+        ErrorFactory $rateErrorFactory,
+        LoggerInterface $logger,
+        ResultFactory $rateResultFactory,
+        MethodFactory $rateMethodFactory,
+        State $appState,
+        UserContextInterface $context,
+        array $data = []
     ) {
-        $this->rateResultFactory = $rateResultFactory;
-        $this->rateMethodFactory = $rateMethodFactory;
-        $this->appState          = $appState;
-        $this->context           = $context;
-
         parent::__construct(
             $scopeConfig,
             $rateErrorFactory,
             $logger,
             $data
         );
+
+        $this->rateResultFactory = $rateResultFactory;
+        $this->rateMethodFactory = $rateMethodFactory;
+        $this->appState = $appState;
+        $this->context = $context;
     }
 
     /**
-     * FreeShipping Rates Collector
-     *
-     * @param RateRequest $request
-     * @return Result|bool
-     * @throws LocalizedException
+     * @inheritDoc
      */
+    // @codingStandardsIgnoreLine
     public function collectRates(RateRequest $request)
     {
         if (!$this->getConfigFlag('active') || !$this->isAdmin()) {
@@ -137,8 +137,12 @@ class Method extends AbstractCarrier implements CarrierInterface
      */
     protected function isAdmin()
     {
-        return $this->appState->getAreaCode() === FrontNameResolver::AREA_CODE
-            || in_array($this->context->getUserType(), [UserContextInterface::USER_TYPE_ADMIN, UserContextInterface::USER_TYPE_INTEGRATION], true)
-            ;
+        $allowedUserType = in_array(
+            $this->context->getUserType(),
+            [UserContextInterface::USER_TYPE_ADMIN, UserContextInterface::USER_TYPE_INTEGRATION],
+            true
+        );
+
+        return $this->appState->getAreaCode() === FrontNameResolver::AREA_CODE || $allowedUserType;
     }
 }

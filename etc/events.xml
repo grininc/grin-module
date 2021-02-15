@@ -1,25 +1,33 @@
 <?xml version="1.0"?>
 
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="cataloginventory_stock_item_save_after">
-        <observer name="grin_wh_stock_item_save_after" instance="Grin\GrinModule\Event\Observer\StockItemWebhookObserver" />
+        <observer name="grin_wh_stock_item_save_after"
+                  instance="Grin\GrinModule\Observer\StockItemWebhook"/>
     </event>
     <event name="sales_order_save_after">
-        <observer name="grin_wh_order_save_after" instance="Grin\GrinModule\Event\Observer\OrderWebhookObserver"/>
+        <observer name="grin_wh_order_save_after"
+                  instance="Grin\GrinModule\Observer\OrderWebhook"/>
     </event>
     <event name="sales_order_save_before">
-        <observer name="grin_wh_order_save_before" instance="Grin\GrinModule\Event\Observer\OrderStateObserver"/>
+        <observer name="grin_wh_order_save_before"
+                  instance="Grin\GrinModule\Observer\OrderState"/>
     </event>
     <event name="catalog_product_save_after">
-        <observer name="grin_wh_product_save_after" instance="Grin\GrinModule\Event\Observer\ProductWebhookObserver"/>
+        <observer name="grin_wh_product_save_after"
+                  instance="Grin\GrinModule\Observer\ProductWebhook"/>
     </event>
     <event name="catalog_product_delete_after">
-        <observer name="grin_wh_product_delete_after" instance="Grin\GrinModule\Event\Observer\ProductWebhookObserver"/>
+        <observer name="grin_wh_product_delete_after"
+                  instance="Grin\GrinModule\Observer\ProductWebhook"/>
     </event>
     <event name="catalog_category_save_after">
-        <observer name="grin_wh_category_save_after" instance="Grin\GrinModule\Event\Observer\CategoryWebhookObserver"/>
+        <observer name="grin_wh_category_save_after"
+                  instance="Grin\GrinModule\Observer\CategoryWebhook"/>
     </event>
     <event name="catalog_category_delete_after">
-        <observer name="grin_wh_category_delete_after" instance="Grin\GrinModule\Event\Observer\CategoryWebhookObserver"/>
+        <observer name="grin_wh_category_delete_after"
+                  instance="Grin\GrinModule\Observer\CategoryWebhook"/>
     </event>
 </config>
