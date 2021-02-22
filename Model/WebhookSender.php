@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Grin\GrinModule\Model;
+namespace Grin\Affiliate\Model;
 
-use Grin\GrinModule\Model\SystemConfig;
+use Grin\Affiliate\Model\SystemConfig;
 use Psr\Log\LoggerInterface;
 use Laminas\Http\Client\Adapter\Curl;
 use Laminas\Uri\Uri;

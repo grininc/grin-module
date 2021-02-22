@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Grin\GrinModule\Observer;
+namespace Grin\Affiliate\Observer;
 
-use Grin\GrinModule\Model\WebhookStateInterface;
-use Grin\GrinModule\Model\WebhookSender;
+use Grin\Affiliate\Model\WebhookStateInterface;
+use Grin\Affiliate\Model\WebhookSender;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 

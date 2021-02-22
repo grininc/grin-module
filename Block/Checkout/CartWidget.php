@@ -1,8 +1,8 @@
 <?php
 
-namespace Grin\GrinModule\Block\Checkout;
+namespace Grin\Affiliate\Block\Checkout;
 
-use Grin\GrinModule\Model\SystemConfig;
+use Grin\Affiliate\Model\SystemConfig;
 use Magento\Checkout\Model\CompositeConfigProvider;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;

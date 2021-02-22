@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Grin\GrinModule\Model;
+namespace Grin\Affiliate\Model;
 
 class OrderTracker
 {

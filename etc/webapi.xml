@@ -2,7 +2,7 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
     <route url="/V1/grin/stockItems" method="GET">
-        <service class="Grin\GrinModule\Api\StockItemsInterface" method="getList"/>
+        <service class="Grin\Affiliate\Api\StockItemsInterface" method="getList"/>
         <resources>
             <resource ref="Magento_CatalogInventory::cataloginventory"/>
         </resources>

@@ -18,7 +18,7 @@
             <class>separator-top</class>
             <label>Grin (Influencer marketing)</label>
             <tab>service</tab>
-            <resource>Grin_GrinModule::grin_integration</resource>
+            <resource>Grin_Affiliate::grin_integration</resource>
             <group id="scripts" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="10" translate="label">
                 <label>Affiliate SDK</label>
                 <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">

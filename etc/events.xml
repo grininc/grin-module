@@ -4,30 +4,30 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="cataloginventory_stock_item_save_after">
         <observer name="grin_wh_stock_item_save_after"
-                  instance="Grin\GrinModule\Observer\StockItemWebhook"/>
+                  instance="Grin\Affiliate\Observer\StockItemWebhook"/>
     </event>
     <event name="sales_order_save_after">
         <observer name="grin_wh_order_save_after"
-                  instance="Grin\GrinModule\Observer\OrderWebhook"/>
+                  instance="Grin\Affiliate\Observer\OrderWebhook"/>
     </event>
     <event name="sales_order_save_before">
         <observer name="grin_wh_order_save_before"
-                  instance="Grin\GrinModule\Observer\OrderState"/>
+                  instance="Grin\Affiliate\Observer\OrderState"/>
     </event>
     <event name="catalog_product_save_after">
         <observer name="grin_wh_product_save_after"
-                  instance="Grin\GrinModule\Observer\ProductWebhook"/>
+                  instance="Grin\Affiliate\Observer\ProductWebhook"/>
     </event>
     <event name="catalog_product_delete_after">
         <observer name="grin_wh_product_delete_after"
-                  instance="Grin\GrinModule\Observer\ProductWebhook"/>
+                  instance="Grin\Affiliate\Observer\ProductWebhook"/>
     </event>
     <event name="catalog_category_save_after">
         <observer name="grin_wh_category_save_after"
-                  instance="Grin\GrinModule\Observer\CategoryWebhook"/>
+                  instance="Grin\Affiliate\Observer\CategoryWebhook"/>
     </event>
     <event name="catalog_category_delete_after">
         <observer name="grin_wh_category_delete_after"
-                  instance="Grin\GrinModule\Observer\CategoryWebhook"/>
+                  instance="Grin\Affiliate\Observer\CategoryWebhook"/>
     </event>
 </config>
