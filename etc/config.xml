@@ -6,7 +6,7 @@
             <grininfluencershipping>
                 <active>0</active>
                 <sallowspecific>0</sallowspecific>
-                <model>Grin\GrinModule\Model\Carrier\Method</model>
+                <model>Grin\Affiliate\Model\Carrier\Method</model>
                 <name>Free</name>
                 <title>Grin Influencer Shipping</title>
                 <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.

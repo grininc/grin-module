@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Grin\GrinModule\Model\Carrier;
+namespace Grin\Affiliate\Model\Carrier;
 
 use Magento\Authorization\Model\UserContextInterface;
 use Magento\Framework\Exception\LocalizedException;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Grin\GrinModule\Observer;
+namespace Grin\Affiliate\Observer;
 
-use Grin\GrinModule\Model\OrderTracker;
+use Grin\Affiliate\Model\OrderTracker;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
 

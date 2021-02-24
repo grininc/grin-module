@@ -7,7 +7,7 @@
                 <resource id="Magento_Backend::stores">
                     <resource id="Magento_Backend::stores_settings">
                         <resource id="Magento_Config::config">
-                            <resource id="Grin_GrinModule::grin_integration" title="Grin integration"/>
+                            <resource id="Grin_Affiliate::grin_integration" title="Grin integration"/>
                         </resource>
                     </resource>
                 </resource>

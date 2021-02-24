@@ -5,9 +5,9 @@
 
     <body>
         <referenceBlock name="before.body.end">
-            <block class="Grin\GrinModule\Block\Footer\FooterScript"
+            <block class="Grin\Affiliate\Block\Footer\FooterScript"
                    name="footer.misc.script"
-                   template="Grin_GrinModule::affiliate/footer.phtml"/>
+                   template="Grin_Affiliate::affiliate/footer.phtml"/>
         </referenceBlock>
     </body>
 </page>
