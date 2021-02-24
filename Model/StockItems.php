@@ -1,33 +1,42 @@
 <?php
 
-namespace Grin\GrinModule\Api;
+declare(strict_types=1);
 
+namespace Grin\GrinModule\Model;
+
+use Grin\GrinModule\Api\StockItemsInterface;
+use Magento\CatalogInventory\Api\StockItemCriteriaInterfaceFactory;
 use Magento\CatalogInventory\Model\ResourceModel\Stock\Item\StockItemCriteria;
 use Magento\CatalogInventory\Model\Stock\StockItemRepository;
-use Magento\Framework\Phrase;
 use Magento\Framework\Validation\ValidationException;
 use Magento\Framework\Api\SearchCriteriaInterface;
 
 class StockItems implements StockItemsInterface
 {
     /**
+     * @var StockItemCriteriaInterfaceFactory
+     */
+    private $stockItemCriteriaFactory;
+
+    /**
      * @var StockItemRepository
      */
     private $repository;
 
     /**
-     * StockItems constructor.
-     *
+     * @param StockItemCriteriaInterfaceFactory $stockItemCriteriaFactory
      * @param StockItemRepository $repository
      */
-    public function __construct(StockItemRepository $repository)
-    {
+    public function __construct(
+        StockItemCriteriaInterfaceFactory $stockItemCriteriaFactory,
+        StockItemRepository $repository
+    ) {
         $this->repository = $repository;
+        $this->stockItemCriteriaFactory = $stockItemCriteriaFactory;
     }
 
     /**
      * @inheritDoc
-     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getList(SearchCriteriaInterface $searchCriteria)
     {
@@ -41,7 +50,7 @@ class StockItems implements StockItemsInterface
      */
     protected function transformCriteria(SearchCriteriaInterface $searchCriteria)
     {
-        $criteria = new StockItemCriteria();
+        $criteria = $this->stockItemCriteriaFactory->create();
 
         $products = [];
         /** @var \Magento\Framework\Api\Search\FilterGroup $filterGroup */
@@ -49,10 +58,10 @@ class StockItems implements StockItemsInterface
             /** @var \Magento\Framework\Api\Filter $filter */
             foreach ($filterGroup->getFilters() as $filter) {
                 if ($filter->getField() !== 'product_id') {
-                    throw new ValidationException(new Phrase('Only filtering by productId is supported'));
+                    throw new ValidationException(__('Only filtering by productId is supported'));
                 }
                 if (!in_array($filter->getConditionType(), ['eq', 'in'], true)) {
-                    throw new ValidationException(new Phrase('Only "eq" and "in" condition types are supported'));
+                    throw new ValidationException(__('Only "eq" and "in" condition types are supported'));
                 }
                 if ($filter->getConditionType() === 'eq') {
                     $products[] = $filter->getValue();
@@ -66,8 +75,9 @@ class StockItems implements StockItemsInterface
                 }
             }
         }
+
         if (!$products) {
-            throw new ValidationException(new Phrase('Please define at least one product filter'));
+            throw new ValidationException(__('Please define at least one product filter'));
         }
 
 

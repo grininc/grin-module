@@ -1,7 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Grin\GrinModule\Api;
 
+/**
+ * @api
+ */
 interface StockItemsInterface
 {
     /**
@@ -9,7 +14,7 @@ interface StockItemsInterface
      *
      * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
      * @return \Magento\CatalogInventory\Api\Data\StockItemCollectionInterface
-     * @api
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getList(\Magento\Framework\Api\SearchCriteriaInterface $searchCriteria);
 }

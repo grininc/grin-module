@@ -1,9 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Magento\Framework\Component\ComponentRegistrar;
 
-ComponentRegistrar::register(
-    ComponentRegistrar::MODULE,
-    'Grin_GrinModule',
-    __DIR__
-);
+ComponentRegistrar::register(ComponentRegistrar::MODULE, 'Grin_GrinModule', __DIR__);

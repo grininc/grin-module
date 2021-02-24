@@ -2,58 +2,57 @@
 
 namespace Grin\GrinModule\Block\Checkout;
 
+use Grin\GrinModule\Model\SystemConfig;
 use Magento\Checkout\Model\CompositeConfigProvider;
-use Magento\Checkout\Model\Session;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
-use Magento\Store\Model\ScopeInterface;
 
 class CartWidget extends Template
 {
-    const XML_PATH_ACTIVE = 'grincheckout/cartwidget/active';
-
     /**
      * @var CompositeConfigProvider
      */
-    protected $configProvider;
+    private $configProvider;
 
     /**
-     * CartWidget constructor.
-     *
-     * @param Context                 $context
-     * @param Session                 $checkoutSession
-     * @param CompositeConfigProvider $configProvider
-     * @param array                   $data
+     * @var SystemConfig
      */
-    public function __construct(Template\Context $context, Session $checkoutSession, CompositeConfigProvider $configProvider, array $data = [])
-    {
-        $this->configProvider = $configProvider;
+    private $systemConfig;
+
+    /**
+     * @param Context $context
+     * @param CompositeConfigProvider $configProvider
+     * @param SystemConfig $systemConfig
+     * @param array $data
+     */
+    public function __construct(
+        Context $context,
+        CompositeConfigProvider $configProvider,
+        SystemConfig $systemConfig,
+        array $data = []
+    ) {
         parent::__construct($context, $data);
+        $this->configProvider = $configProvider;
+        $this->systemConfig = $systemConfig;
     }
 
     /**
-     * @return array
+     * @inheritDoc
      */
-    public function getQuoteId()
+    public function toHtml()
     {
-        return $this->configProvider->getConfig()['quoteData']['entity_id'];
+        if (!$this->systemConfig->isGrinCartWidgetActive()) {
+            return '';
+        }
+
+        return parent::toHtml();
     }
 
     /**
      * @return string
      */
-    protected function _toHtml()
+    public function getQuoteId(): string
     {
-        return parent::_toHtml();
-    }
-
-    /**
-     * Whether is active
-     *
-     * @return bool
-     */
-    public function isEnabled()
-    {
-        return $this->_scopeConfig->isSetFlag(self::XML_PATH_ACTIVE, ScopeInterface::SCOPE_STORE);
+        return (string) ($this->configProvider->getConfig()['quoteData']['entity_id'] ?? '');
     }
 }

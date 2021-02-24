@@ -1,18 +1,17 @@
 <?xml version="1.0" ?>
-<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
-	<acl>
-		<resources>
-			<resource id="Magento_Backend::admin">
-				<resource id="Magento_Backend::stores">
-					<resource id="Magento_Backend::stores_settings">
-						<resource id="Magento_Config::config">
-							<resource id="Grin_GrinModule::grinaffiliate_config" title="Grin affiliate SDK config"/>
-							<resource id="Grin_GrinModule::grincheckout_config" title="Cart widget exposing ID"/>
-							<resource id="Grin_GrinModule::grinwebhook_config" title="Grin Webhooks"/>
-						</resource>
-					</resource>
-				</resource>
-			</resource>
-		</resources>
-	</acl>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Grin_GrinModule::grin_integration" title="Grin integration"/>
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
 </config>

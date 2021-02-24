@@ -1,9 +1,13 @@
 <?xml version="1.0"?>
 
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="content">
-            <block class="Grin\GrinModule\Block\Checkout\Success" name="checkout.misc.script" template="Grin_GrinModule::affiliate/misc-script.phtml" after="-" cacheable="false"/>
+            <block class="Grin\GrinModule\Block\Checkout\Success"
+                   name="checkout.misc.script"
+                   template="Grin_GrinModule::affiliate/success.phtml"
+                   after="-"/>
         </referenceContainer>
     </body>
 </page>

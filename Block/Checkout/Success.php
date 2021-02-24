@@ -1,76 +1,62 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Grin\GrinModule\Block\Checkout;
 
-use Grin\GrinModule\Helper\CheckoutScriptHelper;
+use Grin\GrinModule\Model\SystemConfig;
 use Magento\Checkout\Model\Session;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Sales\Api\Data\OrderInterface;
 use Magento\Sales\Api\OrderRepositoryInterface;
-use Magento\Store\Model\ScopeInterface;
 
 class Success extends Template
 {
-    const XML_PATH_ACTIVE = 'grinaffiliate/scripts/active';
-
     /**
      * @var Session
      */
-    protected $checkoutSession;
-
-    /**
-     * @var CheckoutScriptHelper
-     */
-    protected $helper;
+    private $checkoutSession;
 
     /**
      * @var OrderRepositoryInterface
      */
-    protected $orderRepository;
+    private $orderRepository;
 
     /**
-     * @var OrderInterface
+     * @var OrderInterface|null
      */
-    protected $order;
+    private $order;
 
     /**
-     * @var array
+     * @var SystemConfig
      */
-    protected $templateArray;
+    private $systemConfig;
 
     /**
      * @param Context $context
-     * @param CheckoutScriptHelper $helper
      * @param Session $checkoutSession
      * @param OrderRepositoryInterface $orderRepository
+     * @param SystemConfig $systemConfig
      * @param array $data
      */
     public function __construct(
         Context $context,
-        CheckoutScriptHelper $helper,
         Session $checkoutSession,
         OrderRepositoryInterface $orderRepository,
+        SystemConfig $systemConfig,
         array $data = []
     ) {
-        $this->helper = $helper;
+        parent::__construct($context, $data);
         $this->checkoutSession = $checkoutSession;
         $this->orderRepository = $orderRepository;
-        parent::__construct($context, $data);
+        $this->systemConfig = $systemConfig;
     }
 
     /**
-     * @return string
+     * @return OrderInterface|null
      */
-    protected function _toHtml()
-    {
-        return parent::_toHtml();
-    }
-
-    /**
-     * @return OrderInterface
-     */
-    protected function getOrder()
+    protected function getOrder(): ?OrderInterface
     {
         if (!$this->order) {
             $this->order = $this->orderRepository->get($this->checkoutSession->getLastOrderId());
@@ -80,68 +66,41 @@ class Success extends Template
     }
 
     /**
-     * @param $order
+     * @inheritDoc
+     */
+    public function toHtml()
+    {
+        if (!$this->systemConfig->isGrinScriptActive()) {
+            return '';
+        }
+
+        return parent::toHtml();
+    }
+
+    /**
+     * @param OrderInterface $order
      * @return $this
      */
-    public function setOrder($order)
+    public function setOrder(OrderInterface $order): Success
     {
         $this->order = $order;
         return $this;
     }
 
     /**
-     * @return array
-     */
-    protected function getVariablesArray()
-    {
-        $order = $this->getOrder();
-
-        $this->helper->setVariableData('order_id', $order->getIncrementId());
-        $this->helper->setVariableData('total', $this->helper->formatPrice($order->getBaseGrandTotal()));
-        $this->helper->setVariableData('sub_total', $this->helper->formatPrice($order->getBaseSubtotal() - abs($order->getDiscountAmount() ?: 0)));
-        $this->helper->setVariableData('shipping', $this->helper->formatPrice($order->getBaseShippingAmount()));
-        $this->helper->setVariableData('tax', $this->helper->formatPrice($order->getTaxAmount()));
-        $this->helper->setVariableData('coupon_code', $order->getCouponCode() ?: '');
-        $this->helper->setVariableData('discount', $this->helper->formatPrice(abs($order->getDiscountAmount())));
-
-        return $this->helper->getTemplateVariable();
-    }
-
-    /**
-     * @param $string
-     * @return mixed
-     */
-    protected function processTemplate($string)
-    {
-        if (empty($this->templateArray)) {
-            $template = $this->getVariablesArray();
-
-            $this->templateArray = str_replace(array_keys($template), array_values($template), $string);
-        }
-
-        return $this->templateArray;
-    }
-
-    /**
      * @return string
      */
-    public function getActiveScripts()
+    public function getOrderId(): string
     {
-        if (!$this->isEnabled()) {
-            return '';
-        }
-        $script = "<script>Grin = window.Grin || (window.Grin = []);var order_number = '{{order_id}}', amount = '{{sub_total}}';Grin.push(['conversion', amount, {order_number: order_number}]);</script>";
-
-        return $this->processTemplate($script);
+        return (string) $this->getOrder()->getIncrementId();
     }
 
     /**
-     * Whether is active
-     *
-     * @return bool
+     * @return float|int|null
      */
-    public function isEnabled()
+    public function getSubtotal()
     {
-        return $this->_scopeConfig->isSetFlag(self::XML_PATH_ACTIVE, ScopeInterface::SCOPE_STORE);
+        $order = $this->getOrder();
+        return $order->getBaseSubtotal() - abs($order->getDiscountAmount() ?: 0);
     }
 }

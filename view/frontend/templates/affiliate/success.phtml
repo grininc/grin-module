@@ -1,0 +1,11 @@
+<?php
+/** @var Grin\GrinModule\Block\Checkout\Success $block */
+/** @var Magento\Framework\Escaper $escaper */
+?>
+
+<script>
+    Grin = window.Grin || (window.Grin = []);
+    var orderNumber = '<?= $escaper->escapeHtml($block->getOrderId()) ?>',
+        amount = '<?= $escaper->escapeHtml($block->getSubtotal()) ?>';
+    Grin.push(['conversion', amount, {order_number: orderNumber}]);
+</script>
