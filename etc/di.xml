@@ -3,6 +3,12 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Grin\Affiliate\Api\StockItemsInterface"
                 type="Grin\Affiliate\Model\StockItems"/>
+    <preference for="Grin\Affiliate\Api\Data\RequestInterface"
+                type="Grin\Affiliate\Model\Data\Request"/>
+    <preference for="Grin\Affiliate\Api\PublisherInterface"
+                type="Grin\Affiliate\Model\Queue\Publisher"/>
+    <preference for="Grin\Affiliate\Api\AffiliateServiceInterface"
+                type="Grin\Affiliate\Model\AffiliateService"/>
     <type name="Grin\Affiliate\Model\SystemConfig">
         <arguments>
             <argument name="data" xsi:type="array">
@@ -10,6 +16,13 @@
                 <item name="grin_cart_widget_active" xsi:type="string">grin_integration/cartwidget/active</item>
                 <item name="grin_webhook_active" xsi:type="string">grin_integration/webhook/active</item>
                 <item name="grin_webhook_token" xsi:type="string">grin_integration/webhook/token</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\MessageQueue\MergerFactory">
+        <arguments>
+            <argument name="mergers" xsi:type="array">
+                <item name="inventoryQtyCounterteest" xsi:type="string">Magento\ScalableInventory\Model\Merger</item>
             </argument>
         </arguments>
     </type>

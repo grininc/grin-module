@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Grin\Affiliate\Model;
 
+use Grin\Affiliate\Api\AffiliateServiceInterface;
 use Grin\Affiliate\Model\SystemConfig;
 use Psr\Log\LoggerInterface;
 use Laminas\Http\Client\Adapter\Curl;
 use Laminas\Uri\Uri;
 use Magento\Framework\Serialize\Serializer\Json;
 
-class WebhookSender
+class AffiliateService implements AffiliateServiceInterface
 {
-    private const GRIN_URL = 'https://app.grin.co/ecommerce/magento/webhook';
-
     /**
      * @var Curl
      */
@@ -46,8 +45,13 @@ class WebhookSender
      * @param Uri $uri
      * @param Json $json
      */
-    public function __construct(Curl $curl, SystemConfig $systemConfig, LoggerInterface $logger, Uri $uri, Json $json)
-    {
+    public function __construct(
+        Curl $curl,
+        SystemConfig $systemConfig,
+        LoggerInterface $logger,
+        Uri $uri,
+        Json $json
+    ) {
         $this->curl = $curl;
         $this->systemConfig = $systemConfig;
         $this->logger = $logger;
@@ -56,8 +60,7 @@ class WebhookSender
     }
 
     /**
-     * @param string $topic
-     * @param array $data
+     * @inheritDoc
      */
     public function send(string $topic, array $data)
     {
@@ -112,7 +115,7 @@ class WebhookSender
      */
     private function getUri(): Uri
     {
-        $this->uri->parse(WebhookSender::GRIN_URL);
+        $this->uri->parse(self::GRIN_URL);
         $this->uri->setPort($this->uri->getScheme() === 'https' ? 443 : 80);
 
         return $this->uri;

@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace Grin\Affiliate\Observer;
 
+use Grin\Affiliate\Api\PublisherInterface;
 use Grin\Affiliate\Model\WebhookStateInterface;
-use Grin\Affiliate\Model\WebhookSender;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 
 class StockItemWebhook implements ObserverInterface
 {
     /**
-     * @var WebhookSender
+     * @var PublisherInterface
      */
-    private $webhookSender;
+    private $publisher;
 
     /**
-     * @param WebhookSender $webhookSender
+     * @param PublisherInterface $publisher
      */
-    public function __construct(WebhookSender $webhookSender)
+    public function __construct(PublisherInterface $publisher)
     {
-        $this->webhookSender = $webhookSender;
+        $this->publisher = $publisher;
     }
 
     /**
@@ -30,8 +30,8 @@ class StockItemWebhook implements ObserverInterface
     public function execute(Observer $observer)
     {
         $stockItem = $observer->getDataObject();
-        $this->webhookSender->send(
-            'stock_item_' . WebhookStateInterface::POSTFIX_UPDATED,
+        $this->publisher->publish(
+            'stock_item' . WebhookStateInterface::POSTFIX_UPDATED,
             [
                 'product_id' => $stockItem->getProductId(),
                 'id' => $stockItem->getStockId(),
