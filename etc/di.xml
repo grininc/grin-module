@@ -26,4 +26,19 @@
             </argument>
         </arguments>
     </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="grin_affiliate_queue_messages_listing_data_source" xsi:type="string">QueueMessageGridDataProvider</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="QueueMessageGridDataProvider"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">queue_message_status</argument>
+            <argument name="resourceModel" xsi:type="string">Magento\MysqlMq\Model\ResourceModel\MessageStatus</argument>
+        </arguments>
+    </virtualType>
 </config>
