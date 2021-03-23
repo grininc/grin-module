@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Communication/etc/communication.xsd">
+    <topic name="grin_affiliate_webhook" request="Grin\Affiliate\Api\Data\RequestInterface">
+        <handler name="grin_affiliate_webhook"
+                 type="Grin\Affiliate\Model\Queue\Consumer"
+                 method="process" />
+    </topic>
+</config>

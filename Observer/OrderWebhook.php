@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Grin\Affiliate\Observer;
 
+use Grin\Affiliate\Api\PublisherInterface;
 use Grin\Affiliate\Model\WebhookStateInterface;
 use Grin\Affiliate\Model\OrderTracker;
-use Grin\Affiliate\Model\WebhookSender;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Sales\Api\Data\OrderInterface;
@@ -14,9 +14,9 @@ use Magento\Sales\Api\Data\OrderInterface;
 class OrderWebhook implements ObserverInterface
 {
     /**
-     * @var WebhookSender
+     * @var PublisherInterface
      */
-    private $webhookSender;
+    private $publisher;
 
     /**
      * @var OrderTracker
@@ -24,12 +24,12 @@ class OrderWebhook implements ObserverInterface
     private $orderTracker;
 
     /**
-     * @param WebhookSender $webhookSender
+     * @param PublisherInterface $publisher
      * @param OrderTracker $orderTracker
      */
-    public function __construct(WebhookSender $webhookSender, OrderTracker $orderTracker)
+    public function __construct(PublisherInterface $publisher, OrderTracker $orderTracker)
     {
-        $this->webhookSender = $webhookSender;
+        $this->publisher = $publisher;
         $this->orderTracker = $orderTracker;
     }
 
@@ -38,8 +38,13 @@ class OrderWebhook implements ObserverInterface
      */
     public function execute(Observer $observer)
     {
-        $object = $observer->getDataObject();
-        $this->webhookSender->send($this->buildType($object), $this->buildData($object));
+        $order = $observer->getDataObject();
+        $this->publisher->publish(
+            $this->buildType($order),
+            [
+                'id' => $order->getId(),
+            ]
+        );
     }
 
     /**
@@ -52,16 +57,5 @@ class OrderWebhook implements ObserverInterface
             ? WebhookStateInterface::POSTFIX_CREATED : WebhookStateInterface::POSTFIX_UPDATED;
 
         return $order->getEventPrefix() . '_' . $postfix;
-    }
-
-    /**
-     * @param OrderInterface $order
-     * @return array
-     */
-    private function buildData(OrderInterface $order): array
-    {
-        return [
-            'id' => $order->getId(),
-        ];
     }
 }

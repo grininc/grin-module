@@ -4,25 +4,26 @@ declare(strict_types=1);
 
 namespace Grin\Affiliate\Observer;
 
-use Grin\Affiliate\Model\WebhookSender;
+use Grin\Affiliate\Api\PublisherInterface;
 use Grin\Affiliate\Model\WebhookStateInterface;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Catalog\Api\Data\CategoryInterface;
+use Grin\Affiliate\Api\Data\RequestInterfaceFactory;
 
 class CategoryWebhook implements ObserverInterface
 {
     /**
-     * @var WebhookSender
+     * @var PublisherInterface
      */
-    private $webhookSender;
+    private $publisher;
 
     /**
-     * @param WebhookSender $webhookSender
+     * @param PublisherInterface $publisher
      */
-    public function __construct(WebhookSender $webhookSender)
+    public function __construct(PublisherInterface $publisher)
     {
-        $this->webhookSender = $webhookSender;
+        $this->publisher = $publisher;
     }
 
     /**
@@ -30,8 +31,13 @@ class CategoryWebhook implements ObserverInterface
      */
     public function execute(Observer $observer)
     {
-        $object = $observer->getDataObject();
-        $this->webhookSender->send($this->buildType($object), $this->buildData($object));
+        $category = $observer->getDataObject();
+        $this->publisher->publish(
+            $this->buildType($category),
+            [
+                'id' => $category->getId(),
+            ]
+        );
     }
 
     /**
@@ -40,7 +46,7 @@ class CategoryWebhook implements ObserverInterface
      */
     private function buildType(CategoryInterface $category): string
     {
-        $prefix = $category->getEventPrefix() . '_';
+        $prefix = $category->getEventPrefix();
 
         if ($category->isDeleted()) {
             return $prefix . WebhookStateInterface::POSTFIX_DELETED;
@@ -51,16 +57,5 @@ class CategoryWebhook implements ObserverInterface
         }
 
         return $prefix . WebhookStateInterface::POSTFIX_UPDATED;
-    }
-
-    /**
-     * @param CategoryInterface $category
-     * @return array
-     */
-    private function buildData(CategoryInterface $category): array
-    {
-        return [
-            'id' => $category->getId(),
-        ];
     }
 }

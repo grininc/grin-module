@@ -3,6 +3,12 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Grin\Affiliate\Api\StockItemsInterface"
                 type="Grin\Affiliate\Model\StockItems"/>
+    <preference for="Grin\Affiliate\Api\Data\RequestInterface"
+                type="Grin\Affiliate\Model\Data\Request"/>
+    <preference for="Grin\Affiliate\Api\PublisherInterface"
+                type="Grin\Affiliate\Model\Queue\Publisher"/>
+    <preference for="Grin\Affiliate\Api\AffiliateServiceInterface"
+                type="Grin\Affiliate\Model\AffiliateService"/>
     <type name="Grin\Affiliate\Model\SystemConfig">
         <arguments>
             <argument name="data" xsi:type="array">
@@ -13,4 +19,26 @@
             </argument>
         </arguments>
     </type>
+    <type name="Magento\Framework\MessageQueue\MergerFactory">
+        <arguments>
+            <argument name="mergers" xsi:type="array">
+                <item name="inventoryQtyCounterteest" xsi:type="string">Magento\ScalableInventory\Model\Merger</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="grin_affiliate_queue_messages_listing_data_source" xsi:type="string">QueueMessageGridDataProvider</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="QueueMessageGridDataProvider"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">queue_message_status</argument>
+            <argument name="resourceModel" xsi:type="string">Magento\MysqlMq\Model\ResourceModel\MessageStatus</argument>
+        </arguments>
+    </virtualType>
 </config>

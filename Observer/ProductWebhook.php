@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Grin\Affiliate\Observer;
 
-use Grin\Affiliate\Model\WebhookSender;
+use Grin\Affiliate\Api\PublisherInterface;
 use Grin\Affiliate\Model\WebhookStateInterface;
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Framework\Event\Observer;
@@ -13,16 +13,16 @@ use Magento\Framework\Event\ObserverInterface;
 class ProductWebhook implements ObserverInterface
 {
     /**
-     * @var WebhookSender
+     * @var PublisherInterface
      */
-    private $webhookSender;
+    private $publisher;
 
     /**
-     * @param WebhookSender $webhookSender
+     * @param PublisherInterface $publisher
      */
-    public function __construct(WebhookSender $webhookSender)
+    public function __construct(PublisherInterface $publisher)
     {
-        $this->webhookSender = $webhookSender;
+        $this->publisher = $publisher;
     }
 
     /**
@@ -30,17 +30,23 @@ class ProductWebhook implements ObserverInterface
      */
     public function execute(Observer $observer)
     {
-        $object = $observer->getDataObject();
-        $this->webhookSender->send($this->buildType($object), $this->buildData($object));
+        $product = $observer->getDataObject();
+        $this->publisher->publish(
+            $this->buildType($product),
+            [
+                'id' => $product->getId(),
+                'sku' => $product->getSku(),
+            ]
+        );
     }
 
     /**
      * @param ProductInterface $product
      * @return string
      */
-    private function buildType(ProductInterface $product)
+    private function buildType(ProductInterface $product): string
     {
-        $prefix = $product->getEventPrefix() . '_';
+        $prefix = $product->getEventPrefix();
 
         if ($product->isDeleted()) {
             return $prefix . WebhookStateInterface::POSTFIX_DELETED;
@@ -51,17 +57,5 @@ class ProductWebhook implements ObserverInterface
         }
 
         return $prefix . WebhookStateInterface::POSTFIX_UPDATED;
-    }
-
-    /**
-     * @param ProductInterface $product
-     * @return array
-     */
-    private function buildData(ProductInterface $product): array
-    {
-        return [
-            'id' => $product->getId(),
-            'sku' => $product->getSku(),
-        ];
     }
 }

@@ -5,7 +5,7 @@
 
 <script>
     Grin = window.Grin || (window.Grin = []);
-    var orderNumber = '<?= $escaper->escapeHtml($block->getOrderId()) ?>',
-        amount = '<?= $escaper->escapeHtml($block->getSubtotal()) ?>';
+    var orderNumber = '<?= $block->escapeHtml($block->getOrderId()) ?>',
+        amount = '<?= $block->escapeHtml($block->getSubtotal()) ?>';
     Grin.push(['conversion', amount, {order_number: orderNumber}]);
 </script>
