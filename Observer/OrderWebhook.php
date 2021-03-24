@@ -42,7 +42,7 @@ class OrderWebhook implements ObserverInterface
         $this->publisher->publish(
             $this->buildType($order),
             [
-                'id' => $order->getId(),
+                'id' => (int) $order->getId(),
             ]
         );
     }
@@ -56,6 +56,6 @@ class OrderWebhook implements ObserverInterface
         $postfix = $this->orderTracker->isNew()
             ? WebhookStateInterface::POSTFIX_CREATED : WebhookStateInterface::POSTFIX_UPDATED;
 
-        return $order->getEventPrefix() . '_' . $postfix;
+        return $order->getEventPrefix() . $postfix;
     }
 }

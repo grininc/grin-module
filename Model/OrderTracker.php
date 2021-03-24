@@ -9,20 +9,21 @@ class OrderTracker
     /**
      * @var boolean
      */
-    protected $new = false;
+    private $new = false;
 
     /**
-     * @param $model
+     * @param bool $flag
+     * @return void
      */
-    public function setModel($model)
+    public function setNew(bool $flag)
     {
-        $this->new = $model->isObjectNew();
+        $this->new = $flag;
     }
 
     /**
      * @return bool
      */
-    public function isNew()
+    public function isNew(): bool
     {
         return $this->new;
     }

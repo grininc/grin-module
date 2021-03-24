@@ -35,7 +35,7 @@ class CategoryWebhook implements ObserverInterface
         $this->publisher->publish(
             $this->buildType($category),
             [
-                'id' => $category->getId(),
+                'id' => (int) $category->getId(),
             ]
         );
     }
