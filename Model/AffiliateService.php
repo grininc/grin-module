@@ -6,6 +6,7 @@ namespace Grin\Affiliate\Model;
 
 use Grin\Affiliate\Api\AffiliateServiceInterface;
 use Grin\Affiliate\Model\SystemConfig;
+use Magento\Framework\Exception\LocalizedException;
 use Psr\Log\LoggerInterface;
 use Laminas\Http\Client\Adapter\Curl;
 use Laminas\Uri\Uri;
@@ -62,10 +63,10 @@ class AffiliateService implements AffiliateServiceInterface
     /**
      * @inheritDoc
      */
-    public function send(string $topic, array $data)
+    public function send(string $topic, array $data): bool
     {
         if (!$this->canSend()) {
-            return;
+            return false;
         }
 
         $payload = $this->json->serialize($data);
@@ -76,20 +77,20 @@ class AffiliateService implements AffiliateServiceInterface
                 CURLOPT_RETURNTRANSFER => true,
                 CURLINFO_HEADER_OUT => true
             ]);
-            $headers = [
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($payload),
-                'Authorization: ' . $this->systemConfig->getWebhookToken(),
-                'Magento-Webhook-Topic: ' . $topic
-            ];
-
             $uri = $this->getUri();
             $this->curl->connect($uri->getHost(), $uri->getPort(), true);
-            $this->curl->write('POST', $uri, 1.1, $headers, $payload);
+            $this->curl->write('POST', $uri, 1.1, $this->getHeaders($payload, $topic), $payload);
+            $code = curl_getinfo($this->curl->getHandle(), CURLINFO_HTTP_CODE);
             $this->curl->close();
+            if ($code !== 200) {
+                throw new LocalizedException(__('Grin affiliate service webhook has failed with status code %1', $code));
+            }
         } catch (\Exception $e) {
             $this->logger->critical($e->getMessage(), $e->getTrace());
+            throw new LocalizedException(__('Grin affiliate service webhook has failed'), $e);
         }
+
+        return true;
     }
 
     /**
@@ -119,5 +120,20 @@ class AffiliateService implements AffiliateServiceInterface
         $this->uri->setPort($this->uri->getScheme() === 'https' ? 443 : 80);
 
         return $this->uri;
+    }
+
+    /**
+     * @param string $payload
+     * @param string $topic
+     * @return string[]
+     */
+    private function getHeaders(string $payload, string $topic): array
+    {
+        return [
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($payload),
+            'Authorization: ' . $this->systemConfig->getWebhookToken(),
+            'Magento-Webhook-Topic: ' . $topic
+        ];
     }
 }

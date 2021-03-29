@@ -6,6 +6,7 @@ namespace Grin\Affiliate\Model\Queue;
 
 use Grin\Affiliate\Api\PublisherInterface as GrinPublisherInterface;
 use Grin\Affiliate\Api\Data\RequestInterfaceFactory;
+use Grin\Affiliate\Model\SystemConfig;
 use Magento\Framework\MessageQueue\PublisherInterface;
 use Magento\Framework\Serialize\Serializer\Json;
 
@@ -27,18 +28,26 @@ class Publisher implements GrinPublisherInterface
     private $json;
 
     /**
+     * @var SystemConfig
+     */
+    private $systemConfig;
+
+    /**
      * @param PublisherInterface $publisher
      * @param RequestInterfaceFactory $requestFactory
      * @param Json $json
+     * @param SystemConfig $systemConfig
      */
     public function __construct(
         PublisherInterface $publisher,
         RequestInterfaceFactory $requestFactory,
-        Json $json
+        Json $json,
+        SystemConfig $systemConfig
     ) {
         $this->publisher = $publisher;
         $this->requestFactory = $requestFactory;
         $this->json = $json;
+        $this->systemConfig = $systemConfig;
     }
 
     /**
@@ -46,12 +55,14 @@ class Publisher implements GrinPublisherInterface
      */
     public function publish(string $topic, array $data)
     {
+        if (!$this->systemConfig->isGrinWebhookActive()) {
+            return;
+        }
+
         $request = $this->requestFactory->create();
         $request->setTopic($topic);
         $request->setSerializedData($this->json->serialize($data));
 
         $this->publisher->publish(self::TOPIC, $request);
-
-        // \Magento\MysqlMq\Model\ResourceModel\Queue
     }
 }

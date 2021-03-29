@@ -34,8 +34,8 @@ class ProductWebhook implements ObserverInterface
         $this->publisher->publish(
             $this->buildType($product),
             [
-                'id' => $product->getId(),
-                'sku' => $product->getSku(),
+                'id' => (int) $product->getId(),
+                'sku' => (string) $product->getSku(),
             ]
         );
     }

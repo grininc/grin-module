@@ -7,6 +7,7 @@ namespace Grin\Affiliate\Observer;
 use Grin\Affiliate\Model\OrderTracker;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
+use Magento\Sales\Api\Data\OrderInterface;
 
 class OrderState implements ObserverInterface
 {
@@ -31,8 +32,8 @@ class OrderState implements ObserverInterface
     {
         $order = $observer->getDataObject();
 
-        if ($order->isObjectNew()) {
-            $this->orderTracker->setModel($observer->getDataObject());
+        if ($order instanceof OrderInterface) {
+            $this->orderTracker->setNew($order->isObjectNew());
         }
     }
 }

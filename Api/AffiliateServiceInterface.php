@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Grin\Affiliate\Api;
 
+use Magento\Framework\Exception\LocalizedException;
+
 /**
  * @api
  */
@@ -15,7 +17,8 @@ interface AffiliateServiceInterface
      * @param string $topic
      * @param array $data
      *
-     * @return void
+     * @return bool
+     * @throws LocalizedException
      */
-    public function send(string $topic, array $data);
+    public function send(string $topic, array $data): bool;
 }

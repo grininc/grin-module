@@ -33,8 +33,8 @@ class StockItemWebhook implements ObserverInterface
         $this->publisher->publish(
             'stock_item' . WebhookStateInterface::POSTFIX_UPDATED,
             [
-                'product_id' => $stockItem->getProductId(),
-                'id' => $stockItem->getStockId(),
+                'product_id' => (int) $stockItem->getProductId(),
+                'id' => (int) $stockItem->getStockId(),
             ]
         );
     }
