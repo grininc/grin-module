@@ -7,4 +7,10 @@
             <resource ref="Magento_CatalogInventory::cataloginventory"/>
         </resources>
     </route>
+    <route url="/V1/grin/salesrulestaging" method="POST">
+        <service class="Grin\Affiliate\Api\RuleStagingRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Magento_SalesRule::quote"/>
+        </resources>
+    </route>
 </routes>
