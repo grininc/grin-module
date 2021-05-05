@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace Grin\Affiliate\Model;
 
 use Grin\Affiliate\Api\AffiliateServiceInterface;
+use Grin\Affiliate\Model\Http\Client\Adapter\CurlFactory;
 use Grin\Affiliate\Model\SystemConfig;
 use Magento\Framework\Exception\LocalizedException;
 use Psr\Log\LoggerInterface;
-use Laminas\Http\Client\Adapter\Curl;
 use Laminas\Uri\Uri;
 use Magento\Framework\Serialize\Serializer\Json;
 
 class AffiliateService implements AffiliateServiceInterface
 {
     /**
-     * @var Curl
+     * @var CurlFactory
      */
-    private $curl;
+    private $curlFactory;
 
     /**
      * @var SystemConfig
@@ -40,20 +40,20 @@ class AffiliateService implements AffiliateServiceInterface
     private $json;
 
     /**
-     * @param Curl $curl
+     * @param CurlFactory $curlFactory
      * @param SystemConfig $systemConfig
      * @param LoggerInterface $logger
      * @param Uri $uri
      * @param Json $json
      */
     public function __construct(
-        Curl $curl,
+        CurlFactory $curlFactory,
         SystemConfig $systemConfig,
         LoggerInterface $logger,
         Uri $uri,
         Json $json
     ) {
-        $this->curl = $curl;
+        $this->curlFactory = $curlFactory;
         $this->systemConfig = $systemConfig;
         $this->logger = $logger;
         $this->uri = $uri;
@@ -73,15 +73,20 @@ class AffiliateService implements AffiliateServiceInterface
         $this->logger->info(sprintf('Sending the webhook "%s" %s', $topic, $payload));
 
         try {
-            $this->curl->setOptions([
-                CURLOPT_RETURNTRANSFER => true,
-                CURLINFO_HEADER_OUT => true
-            ]);
+            $curl = $this->curlFactory->create();
+
+            $curl->setCurlOption(CURLOPT_RETURNTRANSFER, true);
+            $curl->setCurlOption(CURLINFO_HEADER_OUT, true);
+
+            if ($curl instanceof \Zend_Http_Client_Adapter_Curl) {
+                $curl->setConfig(['timeout' => 30, 'maxredirects' => 1]);
+            }
+
             $uri = $this->getUri();
-            $this->curl->connect($uri->getHost(), $uri->getPort(), true);
-            $this->curl->write('POST', $uri, 1.1, $this->getHeaders($payload, $topic), $payload);
-            $code = curl_getinfo($this->curl->getHandle(), CURLINFO_HTTP_CODE);
-            $this->curl->close();
+            $curl->connect($uri->getHost(), $uri->getPort(), true);
+            $curl->write('POST', $uri, 1.1, $this->getHeaders($payload, $topic), $payload);
+            $code = curl_getinfo($curl->getHandle(), CURLINFO_HTTP_CODE);
+            $curl->close();
             if ($code !== 200) {
                 throw new LocalizedException(__('Grin affiliate service webhook has failed with status code %1', $code));
             }
