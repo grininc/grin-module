@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Api;
+namespace Grin\Module\Api;
 
 use Magento\Framework\Exception\LocalizedException;
 
 /**
  * @api
  */
-interface AffiliateServiceInterface
+interface GrinServiceInterface
 {
     public const GRIN_URL = 'https://app.grin.co/ecommerce/magento/webhook';
 

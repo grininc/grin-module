@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Model\Queue;
+namespace Grin\Module\Model\Queue;
 
-use Grin\Affiliate\Api\AffiliateServiceInterface;
-use Grin\Affiliate\Api\Data\RequestInterface;
+use Grin\Module\Api\GrinServiceInterface;
+use Grin\Module\Api\Data\RequestInterface;
 use Magento\Framework\Serialize\SerializerInterface;
 use Psr\Log\LoggerInterface;
 
 class Consumer
 {
     /**
-     * @var AffiliateServiceInterface
+     * @var GrinServiceInterface
      */
-    private $affiliateService;
+    private $grinService;
 
     /**
      * @var LoggerInterface
@@ -27,16 +27,16 @@ class Consumer
     private $serializer;
 
     /**
-     * @param AffiliateServiceInterface $affiliateService
+     * @param GrinServiceInterface $grinService
      * @param LoggerInterface $logger
      * @param SerializerInterface $serializer
      */
     public function __construct(
-        AffiliateServiceInterface $affiliateService,
+        GrinServiceInterface $grinService,
         LoggerInterface $logger,
         SerializerInterface $serializer
     ) {
-        $this->affiliateService = $affiliateService;
+        $this->grinService = $grinService;
         $this->logger = $logger;
         $this->serializer = $serializer;
     }
@@ -51,6 +51,6 @@ class Consumer
         $data = $this->serializer->unserialize($request->getSerializedData());
         $topic = $request->getTopic();
 
-        $this->affiliateService->send($topic, $data);
+        $this->grinService->send($topic, $data);
     }
 }

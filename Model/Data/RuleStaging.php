@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Model\Data;
+namespace Grin\Module\Model\Data;
 
-use Grin\Affiliate\Api\Data\RuleStagingInterface;
-use Grin\Affiliate\Api\Data\StagingDataInterface;
+use Grin\Module\Api\Data\RuleStagingInterface;
+use Grin\Module\Api\Data\StagingDataInterface;
 use Magento\SalesRule\Api\Data\RuleInterface;
 
 class RuleStaging implements RuleStagingInterface

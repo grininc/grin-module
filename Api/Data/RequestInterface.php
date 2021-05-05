@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Api\Data;
+namespace Grin\Module\Api\Data;
 
 /**
  * @api

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Observer;
+namespace Grin\Module\Observer;
 
-use Grin\Affiliate\Api\PublisherInterface;
-use Grin\Affiliate\Model\WebhookStateInterface;
-use Grin\Affiliate\Model\OrderTracker;
+use Grin\Module\Api\PublisherInterface;
+use Grin\Module\Model\WebhookStateInterface;
+use Grin\Module\Model\OrderTracker;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Sales\Api\Data\OrderInterface;

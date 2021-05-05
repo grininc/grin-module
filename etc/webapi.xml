@@ -2,13 +2,13 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
     <route url="/V1/grin/stockItems" method="GET">
-        <service class="Grin\Affiliate\Api\StockItemsInterface" method="getList"/>
+        <service class="Grin\Module\Api\StockItemsInterface" method="getList"/>
         <resources>
             <resource ref="Magento_CatalogInventory::cataloginventory"/>
         </resources>
     </route>
     <route url="/V1/grin/salesrulestaging" method="POST">
-        <service class="Grin\Affiliate\Api\RuleStagingRepositoryInterface" method="save"/>
+        <service class="Grin\Module\Api\RuleStagingRepositoryInterface" method="save"/>
         <resources>
             <resource ref="Magento_SalesRule::quote"/>
         </resources>

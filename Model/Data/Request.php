@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Model\Data;
+namespace Grin\Module\Model\Data;
 
-use Grin\Affiliate\Api\Data\RequestInterface;
+use Grin\Module\Api\Data\RequestInterface;
 
 class Request implements RequestInterface
 {

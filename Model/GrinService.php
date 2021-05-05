@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Model;
+namespace Grin\Module\Model;
 
-use Grin\Affiliate\Api\AffiliateServiceInterface;
-use Grin\Affiliate\Model\Http\Client\Adapter\CurlFactory;
-use Grin\Affiliate\Model\SystemConfig;
+use Grin\Module\Api\GrinServiceInterface;
+use Grin\Module\Model\Http\Client\Adapter\CurlFactory;
+use Grin\Module\Model\SystemConfig;
 use Magento\Framework\Exception\LocalizedException;
 use Psr\Log\LoggerInterface;
 use Laminas\Uri\Uri;
 use Magento\Framework\Serialize\Serializer\Json;
 
-class AffiliateService implements AffiliateServiceInterface
+class GrinService implements GrinServiceInterface
 {
     /**
      * @var CurlFactory
@@ -88,11 +88,11 @@ class AffiliateService implements AffiliateServiceInterface
             $code = curl_getinfo($curl->getHandle(), CURLINFO_HTTP_CODE);
             $curl->close();
             if ($code !== 200) {
-                throw new LocalizedException(__('Grin affiliate service webhook has failed with status code %1', $code));
+                throw new LocalizedException(__('Grin service webhook has failed with status code %1', $code));
             }
         } catch (\Exception $e) {
             $this->logger->critical($e->getMessage(), $e->getTrace());
-            throw new LocalizedException(__('Grin affiliate service webhook has failed'), $e);
+            throw new LocalizedException(__('Grin service webhook has failed'), $e);
         }
 
         return true;

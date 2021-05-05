@@ -2,9 +2,9 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/topology.xsd">
     <exchange name="magento-db" type="topic" connection="db">
-        <binding id="grin_affiliate_webhook"
-                 topic="grin_affiliate_webhook"
+        <binding id="grin_module_webhook"
+                 topic="grin_module_webhook"
                  destinationType="queue"
-                 destination="grin_affiliate_webhook"/>
+                 destination="grin_module_webhook"/>
     </exchange>
 </config>

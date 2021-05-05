@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Model;
+namespace Grin\Module\Model;
 
-use Grin\Affiliate\Api\StockItemsInterface;
+use Grin\Module\Api\StockItemsInterface;
 use Magento\CatalogInventory\Api\StockItemCriteriaInterfaceFactory;
 use Magento\CatalogInventory\Model\ResourceModel\Stock\Item\StockItemCriteria;
 use Magento\CatalogInventory\Model\Stock\StockItemRepository;

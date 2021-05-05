@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Model\Data;
+namespace Grin\Module\Model\Data;
 
-use Grin\Affiliate\Api\Data\StagingDataInterface;
+use Grin\Module\Api\Data\StagingDataInterface;
 use Magento\Framework\DataObject;
 
 class StagingData extends DataObject implements StagingDataInterface

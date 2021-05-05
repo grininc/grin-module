@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Ui\DataProvider\MessageQueue;
+namespace Grin\Module\Ui\DataProvider\MessageQueue;
 
-use Grin\Affiliate\Api\PublisherInterface;
+use Grin\Module\Api\PublisherInterface;
 use Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider;
 
 class ListingDataProvider extends DataProvider

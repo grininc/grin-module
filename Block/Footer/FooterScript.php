@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Block\Footer;
+namespace Grin\Module\Block\Footer;
 
-use Grin\Affiliate\Model\SystemConfig;
+use Grin\Module\Model\SystemConfig;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 

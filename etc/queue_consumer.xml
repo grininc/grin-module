@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/consumer.xsd">
-    <consumer name="grin_affiliate_webhook"
-              queue="grin_affiliate_webhook"
+    <consumer name="grin_module_webhook"
+              queue="grin_module_webhook"
               connection="db"
               maxMessages="5000"
               consumerInstance="Magento\Framework\MessageQueue\Consumer"
-              handler="Grin\Affiliate\Model\Queue\Consumer::process" />
+              handler="Grin\Module\Model\Queue\Consumer::process" />
 </config>

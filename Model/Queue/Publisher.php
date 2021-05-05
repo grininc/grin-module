@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Model\Queue;
+namespace Grin\Module\Model\Queue;
 
-use Grin\Affiliate\Api\PublisherInterface as GrinPublisherInterface;
-use Grin\Affiliate\Api\Data\RequestInterfaceFactory;
-use Grin\Affiliate\Model\SystemConfig;
+use Grin\Module\Api\PublisherInterface as GrinPublisherInterface;
+use Grin\Module\Api\Data\RequestInterfaceFactory;
+use Grin\Module\Model\SystemConfig;
 use Magento\Framework\MessageQueue\PublisherInterface;
 use Magento\Framework\Serialize\Serializer\Json;
 

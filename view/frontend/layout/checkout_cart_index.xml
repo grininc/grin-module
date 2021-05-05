@@ -4,9 +4,9 @@
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="cart.summary">
-            <block class="Grin\Affiliate\Block\Checkout\CartWidget"
+            <block class="Grin\Module\Block\Checkout\CartWidget"
                    name="gin.cart.id"
-                   template="Grin_Affiliate::checkout/cart-id.phtml"
+                   template="Grin_Module::checkout/cart-id.phtml"
                    before="checkout.cart.methods.bottom"/>
         </referenceContainer>
     </body>

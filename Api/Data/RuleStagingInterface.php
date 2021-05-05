@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Api\Data;
+namespace Grin\Module\Api\Data;
 
 interface RuleStagingInterface
 {
@@ -24,17 +24,17 @@ interface RuleStagingInterface
     /**
      * Return staging data
      *
-     * @return \Grin\Affiliate\Api\Data\StagingDataInterface
+     * @return \Grin\Module\Api\Data\StagingDataInterface
      */
     public function getStagingData();
 
     /**
      * Set staging data
      *
-     * @param \Grin\Affiliate\Api\Data\StagingDataInterface $stagingData
+     * @param \Grin\Module\Api\Data\StagingDataInterface $stagingData
      * @return $this
      */
-    public function setStagingData(\Grin\Affiliate\Api\Data\StagingDataInterface $stagingData);
+    public function setStagingData(\Grin\Module\Api\Data\StagingDataInterface $stagingData);
 
     /**
      * Return entity data

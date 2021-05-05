@@ -1,15 +1,15 @@
 <?xml version="1.0" ?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="Grin\Affiliate\Api\StockItemsInterface"
-                type="Grin\Affiliate\Model\StockItems"/>
-    <preference for="Grin\Affiliate\Api\Data\RequestInterface"
-                type="Grin\Affiliate\Model\Data\Request"/>
-    <preference for="Grin\Affiliate\Api\PublisherInterface"
-                type="Grin\Affiliate\Model\Queue\Publisher"/>
-    <preference for="Grin\Affiliate\Api\AffiliateServiceInterface"
-                type="Grin\Affiliate\Model\AffiliateService"/>
-    <type name="Grin\Affiliate\Model\SystemConfig">
+    <preference for="Grin\Module\Api\StockItemsInterface"
+                type="Grin\Module\Model\StockItems"/>
+    <preference for="Grin\Module\Api\Data\RequestInterface"
+                type="Grin\Module\Model\Data\Request"/>
+    <preference for="Grin\Module\Api\PublisherInterface"
+                type="Grin\Module\Model\Queue\Publisher"/>
+    <preference for="Grin\Module\Api\GrinServiceInterface"
+                type="Grin\Module\Model\GrinService"/>
+    <type name="Grin\Module\Model\SystemConfig">
         <arguments>
             <argument name="data" xsi:type="array">
                 <item name="grin_script_active" xsi:type="string">grin_integration/scripts/active</item>
@@ -30,7 +30,7 @@
     <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
         <arguments>
             <argument name="collections" xsi:type="array">
-                <item name="grin_affiliate_queue_messages_listing_data_source" xsi:type="string">QueueMessageGridDataProvider</item>
+                <item name="grin_module_queue_messages_listing_data_source" xsi:type="string">QueueMessageGridDataProvider</item>
             </argument>
         </arguments>
     </type>

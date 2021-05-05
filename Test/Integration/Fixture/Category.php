@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Test\Integration\Fixture;
+namespace Grin\Module\Test\Integration\Fixture;
 
 use Magento\Catalog\Model\Category as CatalogCategory;
 use Magento\TestFramework\Helper\Bootstrap;
