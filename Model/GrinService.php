@@ -6,11 +6,11 @@ namespace Grin\Module\Model;
 
 use Grin\Module\Api\GrinServiceInterface;
 use Grin\Module\Model\Http\Client\Adapter\CurlFactory;
+use Grin\Module\Model\Http\UriFactory;
 use Grin\Module\Model\SystemConfig;
 use Magento\Framework\Exception\LocalizedException;
-use Psr\Log\LoggerInterface;
-use Laminas\Uri\Uri;
 use Magento\Framework\Serialize\Serializer\Json;
+use Psr\Log\LoggerInterface;
 
 class GrinService implements GrinServiceInterface
 {
@@ -30,9 +30,9 @@ class GrinService implements GrinServiceInterface
     private $logger;
 
     /**
-     * @var Uri
+     * @var UriFactory
      */
-    private $uri;
+    private $uriFactory;
 
     /**
      * @var Json
@@ -43,20 +43,20 @@ class GrinService implements GrinServiceInterface
      * @param CurlFactory $curlFactory
      * @param SystemConfig $systemConfig
      * @param LoggerInterface $logger
-     * @param Uri $uri
+     * @param UriFactory $uriFactory
      * @param Json $json
      */
     public function __construct(
         CurlFactory $curlFactory,
         SystemConfig $systemConfig,
         LoggerInterface $logger,
-        Uri $uri,
+        UriFactory $uriFactory,
         Json $json
     ) {
         $this->curlFactory = $curlFactory;
         $this->systemConfig = $systemConfig;
         $this->logger = $logger;
-        $this->uri = $uri;
+        $this->uriFactory = $uriFactory;
         $this->json = $json;
     }
 
@@ -117,14 +117,24 @@ class GrinService implements GrinServiceInterface
     }
 
     /**
-     * @return Uri
+     * @return \Laminas\Uri\Uri|\Zend_Uri_Http
+     * @throws \Zend_Uri_Exception
      */
-    private function getUri(): Uri
+    private function getUri()
     {
-        $this->uri->parse(self::GRIN_URL);
-        $this->uri->setPort($this->uri->getScheme() === 'https' ? 443 : 80);
+        $uri = $this->uriFactory->create();
 
-        return $this->uri;
+        if ($uri instanceof \Zend_Uri_Http) {
+            $uri = \Zend_Uri_Http::fromString(self::GRIN_URL);
+            $uri->setPath($uri->getScheme() === 'https' ? 443 : 80);
+
+            return $uri;
+        }
+
+        $uri->parse(self::GRIN_URL);
+        $uri->setPort($uri->getScheme() === 'https' ? 443 : 80);
+
+        return $uri;
     }
 
     /**
