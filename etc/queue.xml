@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework-message-queue:etc/queue.xsd">
+    <broker topic="grin_module_webhook" exchange="magento-db" type="db">
+        <queue name="grin_module_webhook"
+               consumer="grin_module_webhook"
+               consumerInstance="Magento\Framework\MessageQueue\Consumer"
+               handler="Grin\Module\Model\Queue\Consumer::process" />
+    </broker>
+</config>
