@@ -4,7 +4,7 @@
     <update handle="styles"/>
     <body>
         <referenceContainer name="content">
-            <uiComponent name="grin_affiliate_queue_messages"/>
+            <uiComponent name="grin_module_queue_messages"/>
         </referenceContainer>
     </body>
 </page>

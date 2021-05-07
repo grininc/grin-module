@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Test\Api;
+namespace Grin\Module\Test\Api;
 
 use Magento\Framework\Webapi\Rest\Request;
 use Magento\TestFramework\TestCase\WebapiAbstract;

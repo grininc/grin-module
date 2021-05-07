@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Model\Http\Client\Adapter;
+namespace Grin\Module\Model\Http\Client\Adapter;
 
 use Magento\Framework\ObjectManagerInterface;
 

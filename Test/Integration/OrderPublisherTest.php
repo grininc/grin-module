@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Test\Integration;
+namespace Grin\Module\Test\Integration;
 
-use Grin\Affiliate\Test\Integration\Fixture\Order as OrderFixture;
-use Grin\Affiliate\Test\Integration\Model\MysqlQueueMessageManager;
+use Grin\Module\Test\Integration\Fixture\Order as OrderFixture;
+use Grin\Module\Test\Integration\Model\MysqlQueueMessageManager;
 use Magento\TestFramework\Helper\Bootstrap;
 use PHPUnit\Framework\TestCase;
 use Magento\Framework\Serialize\Serializer\Json;
@@ -54,7 +54,7 @@ class OrderPublisherTest extends TestCase
      */
     public function testUpdateOrder()
     {
-        $order = Bootstrap::getObjectManager()->get(\Grin\Affiliate\Test\Integration\Model\OrderManager::class)->getLastOrder();
+        $order = Bootstrap::getObjectManager()->get(\Grin\Module\Test\Integration\Model\OrderManager::class)->getLastOrder();
         $order->setStatus(\Magento\Sales\Model\Order::STATE_HOLDED);
         $order->save();
 

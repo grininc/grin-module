@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Test\Integration\Model;
+namespace Grin\Module\Test\Integration\Model;
 
 use Magento\Framework\DataObject;
 use Magento\MysqlMq\Model\ResourceModel\MessageCollection;
@@ -32,7 +32,7 @@ class MysqlQueueMessageManager
         $collection = $this->messageCollectionFactory->create();
         $collection->getSelect()->limit(1);
         $collection->addOrder('id');
-        $collection->addFieldToFilter('topic_name', ['eq' => 'grin_affiliate_webhook']);
+        $collection->addFieldToFilter('topic_name', ['eq' => 'grin_module_webhook']);
 
         return $collection->getFirstItem();
     }
@@ -47,7 +47,7 @@ class MysqlQueueMessageManager
         $collection = $this->messageCollectionFactory->create();
         $collection->getSelect()->limit($limit);
         $collection->addOrder('id');
-        $collection->addFieldToFilter('topic_name', ['eq' => 'grin_affiliate_webhook']);
+        $collection->addFieldToFilter('topic_name', ['eq' => 'grin_module_webhook']);
 
         return $collection->getItems();
     }

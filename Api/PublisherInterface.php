@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Api;
+namespace Grin\Module\Api;
 
 /**
  * @api
  */
 interface PublisherInterface
 {
-    public const TOPIC = 'grin_affiliate_webhook';
+    public const TOPIC = 'grin_module_webhook';
 
     /**
      * @param string $topic

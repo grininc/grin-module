@@ -2,8 +2,8 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
     <router id="admin">
-        <route id="grin_affiliate" frontName="grin_affiliate">
-            <module name="Grin_Affiliate"/>
+        <route id="grin_module" frontName="grin_module">
+            <module name="Grin_Module"/>
         </route>
     </router>
 </config>

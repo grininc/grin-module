@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Test\Integration;
+namespace Grin\Module\Test\Integration;
 
-use Grin\Affiliate\Test\Integration\Fixture\Product as ProductFixture;
-use Grin\Affiliate\Test\Integration\Model\MysqlQueueMessageManager;
+use Grin\Module\Test\Integration\Fixture\Product as ProductFixture;
+use Grin\Module\Test\Integration\Model\MysqlQueueMessageManager;
 use Magento\Framework\Serialize\Serializer\Json;
 use Magento\TestFramework\Helper\Bootstrap;
 use PHPUnit\Framework\TestCase;

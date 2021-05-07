@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
-    <preference for="Grin\Affiliate\Api\RuleStagingRepositoryInterface"
-                type="Grin\Affiliate\Model\RuleStagingRepository" />
-    <preference for="Grin\Affiliate\Api\Data\RuleStagingInterface"
-                type="Grin\Affiliate\Model\Data\RuleStaging" />
-    <preference for="Grin\Affiliate\Api\Data\StagingDataInterface"
-                type="Grin\Affiliate\Model\Data\StagingData" />
+    <preference for="Grin\Module\Api\RuleStagingRepositoryInterface"
+                type="Grin\Module\Model\RuleStagingRepository" />
+    <preference for="Grin\Module\Api\Data\RuleStagingInterface"
+                type="Grin\Module\Model\Data\RuleStaging" />
+    <preference for="Grin\Module\Api\Data\StagingDataInterface"
+                type="Grin\Module\Model\Data\StagingData" />
 
     <!-- Configuration of RuleStagingRepository -->
-    <type name="Grin\Affiliate\Model\RuleStagingRepository">
+    <type name="Grin\Module\Model\RuleStagingRepository">
         <arguments>
             <argument name="stagingUpdateSave" xsi:type="object">ruleUpdateSave</argument>
         </arguments>
@@ -19,9 +19,9 @@
             <argument name="entityName" xsi:type="string">Magento\SalesRule\Api\Data\RuleInterface</argument>
         </arguments>
     </virtualType>
-    <virtualType name="ruleHydrator" type="Magento\Affiliate\Model\Rule\Hydrator">
+    <virtualType name="ruleHydrator" type="Magento\Module\Model\Rule\Hydrator">
         <arguments>
-            <argument name="entityRetriever" xsi:type="object">Magento\Affiliate\Model\Rule\Retriever</argument>
+            <argument name="entityRetriever" xsi:type="object">Magento\Module\Model\Rule\Retriever</argument>
         </arguments>
     </virtualType>
     <virtualType name="ruleUpdateSaveSaveAction" type="Magento\Staging\Model\Entity\Update\Action\Save\SaveAction">
@@ -36,19 +36,19 @@
     </virtualType>
     <virtualType name="ruleUpdateDeleteSaveAction" type="Magento\Staging\Model\Entity\Update\Action\Delete\SaveAction">
         <arguments>
-            <argument name="entityRetriever" xsi:type="object">Magento\Affiliate\Model\Rule\Retriever</argument>
+            <argument name="entityRetriever" xsi:type="object">Magento\Module\Model\Rule\Retriever</argument>
             <argument name="entityName" xsi:type="string">Magento\SalesRule\Api\Data\RuleInterface</argument>
         </arguments>
     </virtualType>
     <virtualType name="ruleUpdateDeleteAssignAction" type="Magento\Staging\Model\Entity\Update\Action\Delete\AssignAction">
         <arguments>
-            <argument name="entityRetriever" xsi:type="object">Magento\Affiliate\Model\Rule\Retriever</argument>
+            <argument name="entityRetriever" xsi:type="object">Magento\Module\Model\Rule\Retriever</argument>
             <argument name="entityName" xsi:type="string">Magento\SalesRule\Api\Data\RuleInterface</argument>
         </arguments>
     </virtualType>
     <virtualType name="ruleUpdateDeleteRemoveAction" type="Magento\Staging\Model\Entity\Update\Action\Delete\RemoveAction">
         <arguments>
-            <argument name="entityRetriever" xsi:type="object">Magento\Affiliate\Model\Rule\Retriever</argument>
+            <argument name="entityRetriever" xsi:type="object">Magento\Module\Model\Rule\Retriever</argument>
             <argument name="entityName" xsi:type="string">Magento\SalesRule\Api\Data\RuleInterface</argument>
         </arguments>
     </virtualType>
@@ -72,7 +72,7 @@
     <!-- /Configuration of RuleStagingRepository -->
 
     <type name="\Magento\Catalog\Api\Data\ProductExtensionInterface">
-        <plugin name="Grin_Affiliate::attribute-data"
-                type="Grin\Affiliate\Plugin\AttributeData" />
+        <plugin name="Grin_Module::attribute-data"
+                type="Grin\Module\Plugin\AttributeData" />
     </type>
 </config>

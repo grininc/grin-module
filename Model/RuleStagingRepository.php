@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Model;
+namespace Grin\Module\Model;
 
-use Grin\Affiliate\Api\RuleStagingRepositoryInterface;
-use Grin\Affiliate\Api\Data\RuleStagingInterface;
+use Grin\Module\Api\RuleStagingRepositoryInterface;
+use Grin\Module\Api\Data\RuleStagingInterface;
 use Magento\SalesRule\Api\Data\RuleInterface;
 use Magento\Staging\Model\Entity\Update\Save as StagingUpdateSave;
 

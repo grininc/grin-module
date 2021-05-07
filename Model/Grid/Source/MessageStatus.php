@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Model\Grid\Source;
+namespace Grin\Module\Model\Grid\Source;
 
 use Magento\Framework\Data\OptionSourceInterface;
 use Magento\MysqlMq\Model\QueueManagement;

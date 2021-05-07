@@ -1,12 +1,12 @@
 <?php
 
-namespace Grin\Affiliate\Test\Integration;
+namespace Grin\Module\Test\Integration;
 
 use Magento\TestFramework\Helper\Bootstrap;
 use PHPUnit\Framework\TestCase;
-use Grin\Affiliate\Model\AffiliateService;
+use Grin\Module\Model\GrinService;
 
-class AffiliateServiceTest extends TestCase
+class GrinServiceTest extends TestCase
 {
     /**
      * @magentoConfigFixture default_store grin_integration/webhook/active 1
@@ -15,7 +15,7 @@ class AffiliateServiceTest extends TestCase
      */
     public function testSend(string $token, array $data)
     {
-        $service = Bootstrap::getObjectManager()->get(AffiliateService::class);
+        $service = Bootstrap::getObjectManager()->get(GrinService::class);
         $this->assertTrue($service->send($token, $data));
     }
 
@@ -43,7 +43,7 @@ class AffiliateServiceTest extends TestCase
      */
     public function testSendNotActive()
     {
-        $service = Bootstrap::getObjectManager()->get(AffiliateService::class);
+        $service = Bootstrap::getObjectManager()->get(GrinService::class);
         $this->assertFalse($service->send('test_topic', []));
     }
 
@@ -53,7 +53,7 @@ class AffiliateServiceTest extends TestCase
      */
     public function testSendWithoutToken()
     {
-        $service = Bootstrap::getObjectManager()->get(AffiliateService::class);
+        $service = Bootstrap::getObjectManager()->get(GrinService::class);
         $this->assertFalse($service->send('test_topic', []));
     }
 }

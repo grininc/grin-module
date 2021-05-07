@@ -2,13 +2,13 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
-        <add id="Grin_Affiliate::grin_integration"
-             title="Grin Affiliate Queue Messages"
+        <add id="Grin_Module::grin_integration"
+             title="Grin Module Queue Messages"
              translate="title"
-             module="Grin_Affiliate"
+             module="Grin_Module"
              sortOrder="30"
              parent="Magento_Support::support"
-             action="grin_affiliate/queue/messages"
-             resource="Grin_Affiliate::grin_integration" />
+             action="grin_module/queue/messages"
+             resource="Grin_Module::grin_integration" />
     </menu>
 </config>

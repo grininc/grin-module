@@ -4,25 +4,25 @@
          xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
     <argument name="data" xsi:type="array">
         <item name="js_config" xsi:type="array">
-            <item name="provider" xsi:type="string">grin_affiliate_queue_messages.grin_affiliate_queue_messages_listing_data_source</item>
+            <item name="provider" xsi:type="string">grin_module_queue_messages.grin_module_queue_messages_listing_data_source</item>
         </item>
     </argument>
     <settings>
-        <spinner>grin_affiliate_columns</spinner>
+        <spinner>grin_module_columns</spinner>
         <deps>
-            <dep>grin_affiliate_queue_messages.grin_affiliate_queue_messages_listing_data_source</dep>
+            <dep>grin_module_queue_messages.grin_module_queue_messages_listing_data_source</dep>
         </deps>
     </settings>
-    <dataSource name="grin_affiliate_queue_messages_listing_data_source" component="Magento_Ui/js/grid/provider">
+    <dataSource name="grin_module_queue_messages_listing_data_source" component="Magento_Ui/js/grid/provider">
         <settings>
             <storageConfig>
                 <param name="indexField" xsi:type="string">id</param>
             </storageConfig>
             <updateUrl path="mui/index/render"/>
         </settings>
-        <aclResource>Grin_Affiliate::grin_integration</aclResource>
-        <dataProvider class="Grin\Affiliate\Ui\DataProvider\MessageQueue\ListingDataProvider"
-                      name="grin_affiliate_queue_messages_listing_data_source">
+        <aclResource>Grin_Module::grin_integration</aclResource>
+        <dataProvider class="Grin\Module\Ui\DataProvider\MessageQueue\ListingDataProvider"
+                      name="grin_module_queue_messages_listing_data_source">
             <settings>
                 <requestFieldName>id</requestFieldName>
                 <primaryFieldName>id</primaryFieldName>
@@ -36,7 +36,7 @@
         <filters name="listing_filters"/>
         <paging name="listing_paging"/>
     </listingToolbar>
-    <columns name="grin_affiliate_columns">
+    <columns name="grin_module_columns">
         <column name="id">
             <settings>
                 <filter>textRange</filter>
@@ -47,7 +47,7 @@
         <column name="status" component="Magento_Ui/js/grid/columns/select">
             <settings>
                 <filter>select</filter>
-                <options class="Grin\Affiliate\Model\Grid\Source\MessageStatus"/>
+                <options class="Grin\Module\Model\Grid\Source\MessageStatus"/>
                 <dataType>select</dataType>
                 <label translate="true">Status</label>
             </settings>

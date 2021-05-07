@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Model;
+namespace Grin\Module\Model;
 
 interface WebhookStateInterface
 {

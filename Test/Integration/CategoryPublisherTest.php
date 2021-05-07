@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Grin\Affiliate\Test\Integration;
+namespace Grin\Module\Test\Integration;
 
-use Grin\Affiliate\Test\Integration\Fixture\Category as CategoryFixture;
-use Grin\Affiliate\Test\Integration\Model\MysqlQueueMessageManager;
+use Grin\Module\Test\Integration\Fixture\Category as CategoryFixture;
+use Grin\Module\Test\Integration\Model\MysqlQueueMessageManager;
 use Magento\TestFramework\Helper\Bootstrap;
 use PHPUnit\Framework\TestCase;
 use Magento\Framework\Serialize\Serializer\Json;
