@@ -3,11 +3,20 @@
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
     <menu>
         <add id="Grin_Module::grin_integration"
+             title="Grin Integration"
+             translate="title"
+             module="Grin_Module"
+             sortOrder="80"
+             parent="Magento_Backend::system"
+             dependsOnModule="Magento_AsynchronousOperations"
+             resource="Grin_Module::grin_integration"/>
+
+        <add id="Grin_Module::grin_queue_messages"
              title="Grin Module Queue Messages"
              translate="title"
              module="Grin_Module"
              sortOrder="30"
-             parent="Magento_Support::support"
+             parent="Grin_Module::grin_integration"
              action="grin_module/queue/messages"
              resource="Grin_Module::grin_integration" />
     </menu>

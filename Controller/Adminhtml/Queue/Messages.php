@@ -16,7 +16,7 @@ class Messages extends Action implements HttpGetActionInterface
     public function execute()
     {
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
-        $resultPage->setActiveMenu('Magento_Support::support_report');
+        $resultPage->setActiveMenu('Magento_Backend::system');
         $resultPage->getConfig()->getTitle()->prepend((__('Grin Module Queue Messages')));
 
         return $resultPage;
