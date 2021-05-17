@@ -22,7 +22,7 @@ class UriFactory
     }
 
     /**
-     * @return \Laminas\Uri\Uri|\Zend_Uri_Http
+     * @return \Laminas\Uri\Uri|bool
      */
     public function create()
     {
@@ -30,6 +30,6 @@ class UriFactory
             return $this->objectManager->create(\Laminas\Uri\Uri::class);
         }
 
-        return $this->objectManager->create(\Zend_Uri_Http::class);
+        return false;
     }
 }
