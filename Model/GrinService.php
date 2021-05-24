@@ -126,14 +126,11 @@ class GrinService implements GrinServiceInterface
 
         if (!$uri instanceof \Laminas\Uri\Uri) {
             $uri = \Zend_Uri_Http::fromString(self::GRIN_URL);
-            $uri->setPath($uri->getScheme() === 'https' ? 443 : 80);
-
-            return $uri;
+        } else {
+            $uri->parse(self::GRIN_URL);
         }
 
-        $uri->parse(self::GRIN_URL);
         $uri->setPort($uri->getScheme() === 'https' ? 443 : 80);
-
         return $uri;
     }
 
