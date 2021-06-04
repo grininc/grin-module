@@ -1,6 +1,5 @@
 <?php
 /** @var Grin\Module\Block\Checkout\CartWidget $block */
-/** @var Magento\Framework\Escaper $escaper */
 ?>
 
 <div id="block-cartid" class="block" data-mage-init='{"collapsible":{"openedState": "active", "saveState": true}}'>
@@ -16,13 +15,13 @@
         <div class="block">
             <input id="cart-id"
                    disabled="disabled"
-                   value="<?= $escaper->escapeHtml($block->getQuoteId()) ?>"
+                   value="<?= $block->escapeHtml($block->getQuoteId()) ?>"
                    type="text"
                    style="background-color: #f5f5f5"/>
             <br>
             <button style="float: right; margin: 10px 0 20px 0;"
                     class="small right"
-                    onclick="copyToClipboard()"><?= $escaper->escapeHtml(__('Copy')) ?></button>
+                    onclick="copyToClipboard()"><?= $block->escapeHtml(__('Copy')) ?></button>
             <script>
                 function copyToClipboard() {
                     var dummy = document.createElement("textarea"),
