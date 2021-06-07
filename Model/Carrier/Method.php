@@ -97,7 +97,7 @@ class Method extends AbstractCarrier implements CarrierInterface
     // @codingStandardsIgnoreLine
     public function collectRates(RateRequest $request)
     {
-        if (!$this->getConfigFlag('active') || !$this->isAdmin()) {
+        if (!$this->getConfigFlag('active') || !$this->isAllowed()) {
             return false;
         }
 
@@ -135,14 +135,12 @@ class Method extends AbstractCarrier implements CarrierInterface
      * @return bool
      * @throws LocalizedException
      */
-    protected function isAdmin()
+    private function isAllowed()
     {
-        $allowedUserType = in_array(
+        return in_array(
             $this->context->getUserType(),
             [UserContextInterface::USER_TYPE_ADMIN, UserContextInterface::USER_TYPE_INTEGRATION],
             true
         );
-
-        return $this->appState->getAreaCode() === FrontNameResolver::AREA_CODE || $allowedUserType;
     }
 }

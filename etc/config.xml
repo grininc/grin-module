@@ -4,13 +4,13 @@
     <default>
         <carriers>
             <grininfluencershipping>
-                <active>0</active>
+                <active>1</active>
                 <sallowspecific>0</sallowspecific>
                 <model>Grin\Module\Model\Carrier\Method</model>
+                <shipping_cost>0</shipping_cost>
                 <name>Free</name>
                 <title>Grin Influencer Shipping</title>
-                <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.
-                </specificerrmsg>
+                <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.</specificerrmsg>
             </grininfluencershipping>
         </carriers>
         <grin_integration>
