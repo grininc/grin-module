@@ -123,11 +123,12 @@ class GrinService implements GrinServiceInterface
     private function getUri()
     {
         $uri = $this->uriFactory->create();
+        $url = $this->systemConfig->getGrinWebhookUrl();
 
         if (!$uri instanceof \Laminas\Uri\Uri) {
-            $uri = \Zend_Uri_Http::fromString(self::GRIN_URL);
+            $uri = \Zend_Uri_Http::fromString($url);
         } else {
-            $uri->parse(self::GRIN_URL);
+            $uri->parse($url);
         }
 
         $uri->setPort($uri->getScheme() === 'https' ? 443 : 80);

@@ -17,6 +17,9 @@
             <scripts>
                 <active>1</active>
             </scripts>
+            <webhook>
+                <url>https://app.grin.co/ecommerce/magento/webhook</url>
+            </webhook>
         </grin_integration>
     </default>
 </config>
