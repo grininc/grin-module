@@ -11,8 +11,6 @@ use Magento\Framework\Exception\LocalizedException;
  */
 interface GrinServiceInterface
 {
-    public const GRIN_URL = 'https://app.grin.co/ecommerce/magento/webhook';
-
     /**
      * @param string $topic
      * @param array $data

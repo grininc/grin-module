@@ -35,13 +35,20 @@
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
-            <group id="webhook" showInDefault="1" showInStore="1" showInWebsite="1" sortOrder="30" translate="label">
+            <group id="webhook" showInDefault="1" sortOrder="30" translate="label">
                 <label>Webhooks</label>
-                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1">
                     <label>Enable</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="token" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="url" translate="label" type="text" sortOrder="2" showInDefault="1">
+                    <label>Url</label>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="token" translate="label" type="text" sortOrder="2" showInDefault="1">
                     <label>Webhook authentication token</label>
                     <validate>required-entry</validate>
                     <depends>
