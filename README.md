@@ -33,7 +33,25 @@ Some notes
 Q&A
 -
 
-Issue: I updated the extension, but it seems like the old version is installed despite the fact that in the compose.lock file I see the updated version of the extension.
+1. Issue: I updated the extension, but it seems like the old version is installed despite the fact that in the compose.lock file I see the updated version of the extension.
 
 Possible solution: the extension uses a DB queue, which is run in shadow mode. So it might be that you did not kill the old process after the installation.
 Try to execute `ps -aux | grep grin_module_webhook` and kill the process if any.
+
+2. Issue: I am using Magento cloud instance and it seems like the 'webhook_grin_module' is not working.
+
+Possible solution: in this case, according to Magento documentation, you need to make sure that the queue job is added into the /app/etc/env.php file like so:
+```
+...
+    'cron_consumers_runner' => [
+        'cron_run' => false,
+        'max_messages' => 20000,
+        'consumers' => [
+            'consumer1',
+            'consumer2',
+            'grin_module_webhook',
+            ...
+        ]
+    ],
+...
+```
