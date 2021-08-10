@@ -20,13 +20,18 @@ class ListingDataProvider extends DataProvider
             return $result;
         }
 
-        $result->getSelect()->joinLeft(
-            ['queue' => $result->getTable('queue')],
-            'queue.id = main_table.queue_id',
-            []
-        );
-
-        $result->getSelect()->where('queue.name = ?', PublisherInterface::TOPIC);
+        $result->getSelect()
+            ->joinLeft(
+                ['queue' => $result->getTable('queue')],
+                'queue.id = main_table.queue_id',
+                []
+            )
+            ->joinLeft(
+                ['response' => $result->getTable('grin_queue_message_status')],
+                'response.id = main_table.id',
+                ['response']
+            )
+            ->where('queue.name = ?', PublisherInterface::TOPIC);
 
         return $result;
     }

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="grin_queue_message_status"
+           resource="default"
+           engine="innodb"
+           comment="Relation table to keep associations between message statuses and queue responses">
+        <column xsi:type="bigint"
+                name="id"
+                unsigned="true"
+                nullable="false"
+                identity="true"
+                comment="Relation ID"/>
+        <column xsi:type="longtext"
+                name="response"
+                comment="Response code and body"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="foreign"
+                    referenceId="GRIN_QUEUE_MESSAGE_STATUS_ID_QUEUE_MESSAGE_STATUS_ID"
+                    table="grin_queue_message_status"
+                    column="id"
+                    referenceTable="queue_message_status"
+                    referenceColumn="id"
+                    onDelete="CASCADE"/>
+    </table>
+</schema>

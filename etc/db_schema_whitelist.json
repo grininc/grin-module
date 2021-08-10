@@ -1,0 +1,12 @@
+{
+    "grin_queue_message_status": {
+        "column": {
+            "id": true,
+            "response": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "GRIN_QUEUE_MESSAGE_STATUS_ID_QUEUE_MESSAGE_STATUS_ID": true
+        }
+    }
+}
