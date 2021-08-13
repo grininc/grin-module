@@ -45,6 +45,11 @@ class GrinService implements GrinServiceInterface
     private $hasErrors = false;
 
     /**
+     * @var int|null
+     */
+    private $storeId;
+
+    /**
      * @param CurlFactory $curlFactory
      * @param SystemConfig $systemConfig
      * @param LoggerInterface $logger
@@ -70,6 +75,9 @@ class GrinService implements GrinServiceInterface
      */
     public function send(string $topic, array $data): ?string
     {
+        $this->storeId = (int) ($data['store_id'] ?? null);
+        unset($data['store_id']);
+
         if (!$this->canSend()) {
             return null;
         }
@@ -122,7 +130,7 @@ class GrinService implements GrinServiceInterface
             return false;
         }
 
-        if (!$this->systemConfig->getWebhookToken()) {
+        if (!$this->systemConfig->getWebhookToken($this->storeId)) {
             $this->logger->critical('Authentication token has not been set up for Grin Webhooks');
 
             return false;
@@ -160,7 +168,7 @@ class GrinService implements GrinServiceInterface
         return [
             'Content-Type: application/json',
             'Content-Length: ' . strlen($payload),
-            'Authorization: ' . $this->systemConfig->getWebhookToken(),
+            'Authorization: ' . $this->systemConfig->getWebhookToken($this->storeId),
             'Magento-Webhook-Topic: ' . $topic
         ];
     }
