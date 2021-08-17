@@ -40,6 +40,11 @@ class GrinService implements GrinServiceInterface
     private $json;
 
     /**
+     * @var bool
+     */
+    private $hasErrors = false;
+
+    /**
      * @param CurlFactory $curlFactory
      * @param SystemConfig $systemConfig
      * @param LoggerInterface $logger
@@ -63,12 +68,13 @@ class GrinService implements GrinServiceInterface
     /**
      * @inheritDoc
      */
-    public function send(string $topic, array $data): bool
+    public function send(string $topic, array $data): ?string
     {
         if (!$this->canSend()) {
-            return false;
+            return null;
         }
 
+        $this->hasErrors = false;
         $payload = $this->json->serialize($data);
         $this->logger->info(sprintf('Sending the webhook "%s" %s', $topic, $payload));
 
@@ -85,17 +91,26 @@ class GrinService implements GrinServiceInterface
             $uri = $this->getUri();
             $curl->connect($uri->getHost(), $uri->getPort(), true);
             $curl->write('POST', $uri, 1.1, $this->getHeaders($payload, $topic), $payload);
+            [$header, $body] = explode("\r\n\r\n", $curl->read(), 2);
             $code = curl_getinfo($curl->getHandle(), CURLINFO_HTTP_CODE);
             $curl->close();
             if ($code !== 200) {
-                throw new LocalizedException(__('Grin service webhook has failed with status code %1', $code));
+                $this->hasErrors = true;
             }
+
+            return $code . ' - ' . $body;
         } catch (\Exception $e) {
             $this->logger->critical($e->getMessage(), $e->getTrace());
             throw new LocalizedException(__('Grin service webhook has failed'), $e);
         }
+    }
 
-        return true;
+    /**
+     * @inheridoc
+     */
+    public function hasErrors(): bool
+    {
+        return $this->hasErrors;
     }
 
     /**

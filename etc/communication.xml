@@ -3,7 +3,7 @@
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Communication/etc/communication.xsd">
     <topic name="grin_module_webhook" request="Grin\Module\Api\Data\RequestInterface">
         <handler name="grin_module_webhook"
-                 type="Grin\Module\Model\Queue\Consumer"
+                 type="Grin\Module\Model\Queue\ConsumerHandler"
                  method="process" />
     </topic>
 </config>
