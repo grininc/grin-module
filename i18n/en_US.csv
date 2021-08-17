@@ -10,3 +10,4 @@ Enable,Enable
 "Cart widget","Cart widget"
 Webhooks,Webhooks
 "Webhook authentication token","Webhook authentication token"
+"The GRIN Module requires the Magento Cron to be running. Please start it now to begin processing webhooks.","The GRIN Module requires the Magento Cron to be running. Please start it now to begin processing webhooks."
