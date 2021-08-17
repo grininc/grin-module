@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Grin\Module\Observer;
 
 use Grin\Module\Api\PublisherInterface;
+use Grin\Module\Model\SystemConfig;
 use Grin\Module\Model\WebhookStateInterface;
 use Grin\Module\Model\OrderTracker;
 use Magento\Framework\Event\Observer;
@@ -24,13 +25,20 @@ class OrderWebhook implements ObserverInterface
     private $orderTracker;
 
     /**
+     * @var SystemConfig
+     */
+    private $systemConfig;
+
+    /**
      * @param PublisherInterface $publisher
      * @param OrderTracker $orderTracker
+     * @param SystemConfig $systemConfig
      */
-    public function __construct(PublisherInterface $publisher, OrderTracker $orderTracker)
+    public function __construct(PublisherInterface $publisher, OrderTracker $orderTracker, SystemConfig $systemConfig)
     {
         $this->publisher = $publisher;
         $this->orderTracker = $orderTracker;
+        $this->systemConfig = $systemConfig;
     }
 
     /**
@@ -38,11 +46,16 @@ class OrderWebhook implements ObserverInterface
      */
     public function execute(Observer $observer)
     {
+        if (!$this->systemConfig->isGrinWebhookActive()) {
+            return;
+        }
+
         $order = $observer->getDataObject();
         $this->publisher->publish(
             $this->buildType($order),
             [
                 'id' => (int) $order->getId(),
+                'store_id' => (int) $order->getStoreId(),
             ]
         );
     }
