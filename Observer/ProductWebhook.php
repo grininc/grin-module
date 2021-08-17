@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Grin\Module\Observer;
 
 use Grin\Module\Api\PublisherInterface;
+use Grin\Module\Model\SystemConfig;
+use Grin\Module\Model\Queue\StoreIdsManager;
 use Grin\Module\Model\WebhookStateInterface;
 use Magento\Catalog\Api\Data\ProductInterface;
 use Magento\Framework\Event\Observer;
@@ -18,11 +20,28 @@ class ProductWebhook implements ObserverInterface
     private $publisher;
 
     /**
-     * @param PublisherInterface $publisher
+     * @var StoreIdsManager
      */
-    public function __construct(PublisherInterface $publisher)
-    {
+    private $storeIdsManager;
+
+    /**
+     * @var SystemConfig
+     */
+    private $systemConfig;
+
+    /**
+     * @param PublisherInterface $publisher
+     * @param StoreIdsManager $storeIdsManager
+     * @param
+     */
+    public function __construct(
+        PublisherInterface $publisher,
+        StoreIdsManager $storeIdsManager,
+        SystemConfig $systemConfig
+    ) {
         $this->publisher = $publisher;
+        $this->storeIdsManager = $storeIdsManager;
+        $this->systemConfig = $systemConfig;
     }
 
     /**
@@ -30,14 +49,24 @@ class ProductWebhook implements ObserverInterface
      */
     public function execute(Observer $observer)
     {
+        if (!$this->systemConfig->isGrinWebhookActive()) {
+            return;
+        }
+
         $product = $observer->getDataObject();
-        $this->publisher->publish(
-            $this->buildType($product),
-            [
-                'id' => (int) $product->getId(),
-                'sku' => (string) $product->getSku(),
-            ]
-        );
+        $storeIds = $this->storeIdsManager->filterStoreIds($product->getStoreIds());
+
+        foreach ($storeIds as $storeId) {
+            $this->publisher->publish(
+                $this->buildType($product),
+                [
+                    'id' => (int)$product->getId(),
+                    'sku' => (string)$product->getSku(),
+                    'store_id' => (int)$storeId,
+                ]
+            );
+        }
+
     }
 
     /**

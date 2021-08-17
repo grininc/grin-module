@@ -17,6 +17,7 @@
                 <item name="grin_script_active" xsi:type="string">grin_integration/scripts/active</item>
                 <item name="grin_cart_widget_active" xsi:type="string">grin_integration/cartwidget/active</item>
                 <item name="grin_webhook_active" xsi:type="string">grin_integration/webhook/active</item>
+                <item name="grin_webhook_url" xsi:type="string">grin_integration/webhook/url</item>
                 <item name="grin_webhook_token" xsi:type="string">grin_integration/webhook/token</item>
             </argument>
         </arguments>

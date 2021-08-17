@@ -11,14 +11,17 @@ use Magento\Framework\Exception\LocalizedException;
  */
 interface GrinServiceInterface
 {
-    public const GRIN_URL = 'https://app.grin.co/ecommerce/magento/webhook';
-
     /**
      * @param string $topic
      * @param array $data
      *
-     * @return bool
+     * @return string|null
      * @throws LocalizedException
      */
-    public function send(string $topic, array $data): bool;
+    public function send(string $topic, array $data): ?string;
+
+    /**
+     * @return bool
+     */
+    public function hasErrors(): bool;
 }

@@ -40,6 +40,16 @@ class GrinService implements GrinServiceInterface
     private $json;
 
     /**
+     * @var bool
+     */
+    private $hasErrors = false;
+
+    /**
+     * @var int|null
+     */
+    private $storeId;
+
+    /**
      * @param CurlFactory $curlFactory
      * @param SystemConfig $systemConfig
      * @param LoggerInterface $logger
@@ -63,12 +73,16 @@ class GrinService implements GrinServiceInterface
     /**
      * @inheritDoc
      */
-    public function send(string $topic, array $data): bool
+    public function send(string $topic, array $data): ?string
     {
+        $this->storeId = (int) ($data['store_id'] ?? null);
+        unset($data['store_id']);
+
         if (!$this->canSend()) {
-            return false;
+            return null;
         }
 
+        $this->hasErrors = false;
         $payload = $this->json->serialize($data);
         $this->logger->info(sprintf('Sending the webhook "%s" %s', $topic, $payload));
 
@@ -85,17 +99,26 @@ class GrinService implements GrinServiceInterface
             $uri = $this->getUri();
             $curl->connect($uri->getHost(), $uri->getPort(), true);
             $curl->write('POST', $uri, 1.1, $this->getHeaders($payload, $topic), $payload);
+            [$header, $body] = explode("\r\n\r\n", $curl->read(), 2);
             $code = curl_getinfo($curl->getHandle(), CURLINFO_HTTP_CODE);
             $curl->close();
             if ($code !== 200) {
-                throw new LocalizedException(__('Grin service webhook has failed with status code %1', $code));
+                $this->hasErrors = true;
             }
+
+            return $code . ' - ' . $body;
         } catch (\Exception $e) {
             $this->logger->critical($e->getMessage(), $e->getTrace());
             throw new LocalizedException(__('Grin service webhook has failed'), $e);
         }
+    }
 
-        return true;
+    /**
+     * @inheridoc
+     */
+    public function hasErrors(): bool
+    {
+        return $this->hasErrors;
     }
 
     /**
@@ -107,7 +130,7 @@ class GrinService implements GrinServiceInterface
             return false;
         }
 
-        if (!$this->systemConfig->getWebhookToken()) {
+        if (!$this->systemConfig->getWebhookToken($this->storeId)) {
             $this->logger->critical('Authentication token has not been set up for Grin Webhooks');
 
             return false;
@@ -123,11 +146,12 @@ class GrinService implements GrinServiceInterface
     private function getUri()
     {
         $uri = $this->uriFactory->create();
+        $url = $this->systemConfig->getGrinWebhookUrl();
 
         if (!$uri instanceof \Laminas\Uri\Uri) {
-            $uri = \Zend_Uri_Http::fromString(self::GRIN_URL);
+            $uri = \Zend_Uri_Http::fromString($url);
         } else {
-            $uri->parse(self::GRIN_URL);
+            $uri->parse($url);
         }
 
         $uri->setPort($uri->getScheme() === 'https' ? 443 : 80);
@@ -144,7 +168,7 @@ class GrinService implements GrinServiceInterface
         return [
             'Content-Type: application/json',
             'Content-Length: ' . strlen($payload),
-            'Authorization: ' . $this->systemConfig->getWebhookToken(),
+            'Authorization: ' . $this->systemConfig->getWebhookToken($this->storeId),
             'Magento-Webhook-Topic: ' . $topic
         ];
     }

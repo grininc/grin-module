@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Grin\Module\Observer;
 
 use Grin\Module\Model\OrderTracker;
+use Grin\Module\Model\SystemConfig;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer;
 use Magento\Sales\Api\Data\OrderInterface;
@@ -17,11 +18,18 @@ class OrderState implements ObserverInterface
     private $orderTracker;
 
     /**
-     * @param OrderTracker $orderTracker
+     * @var SystemConfig
      */
-    public function __construct(OrderTracker $orderTracker)
+    private $systemConfig;
+
+    /**
+     * @param OrderTracker $orderTracker
+     * @param SystemConfig $systemConfig
+     */
+    public function __construct(OrderTracker $orderTracker, SystemConfig $systemConfig)
     {
         $this->orderTracker = $orderTracker;
+        $this->systemConfig = $systemConfig;
     }
 
     /**
@@ -30,6 +38,10 @@ class OrderState implements ObserverInterface
      */
     public function execute(Observer $observer)
     {
+        if (!$this->systemConfig->isGrinWebhookActive()) {
+            return;
+        }
+
         $order = $observer->getDataObject();
 
         if ($order instanceof OrderInterface) {

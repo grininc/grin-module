@@ -30,4 +30,15 @@ interface RequestInterface
      * @return RequestInterface
      */
     public function setSerializedData(string $serializedData): RequestInterface;
+
+    /**
+     * @return int|null
+     */
+    public function getMessageStatusId(): ?int;
+
+    /**
+     * @param int $messageStatusId
+     * @return RequestInterface
+     */
+    public function setMessageStatusId(int $messageStatusId): RequestInterface;
 }

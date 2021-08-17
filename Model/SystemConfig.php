@@ -50,17 +50,27 @@ class SystemConfig
      */
     public function isGrinWebhookActive(): bool
     {
-        return $this->scopeConfig->isSetFlag($this->data['grin_webhook_active'] ?? '', ScopeInterface::SCOPE_STORE);
+        return $this->scopeConfig->isSetFlag($this->data['grin_webhook_active'] ?? '');
     }
 
     /**
      * @return string
      */
-    public function getWebhookToken(): string
+    public function getGrinWebhookUrl(): string
+    {
+        return (string) $this->scopeConfig->getValue($this->data['grin_webhook_url'] ?? '');
+    }
+
+    /**
+     * @param int|null $storeId (Optional)
+     * @return string
+     */
+    public function getWebhookToken(int $storeId = null): string
     {
         return (string) $this->scopeConfig->getValue(
             $this->data['grin_webhook_token'] ?? '',
-            ScopeInterface::SCOPE_STORE
+            ScopeInterface::SCOPE_STORE,
+            $storeId
         );
     }
 }

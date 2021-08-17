@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Grin\Module\Observer;
 
 use Grin\Module\Api\PublisherInterface;
+use Grin\Module\Model\Queue\StoreIdsManager;
+use Grin\Module\Model\SystemConfig;
 use Grin\Module\Model\WebhookStateInterface;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
@@ -19,11 +21,28 @@ class CategoryWebhook implements ObserverInterface
     private $publisher;
 
     /**
-     * @param PublisherInterface $publisher
+     * @var StoreIdsManager
      */
-    public function __construct(PublisherInterface $publisher)
-    {
+    private $storeIdsManager;
+
+    /**
+     * @var SystemConfig
+     */
+    private $systemConfig;
+
+    /**
+     * @param PublisherInterface $publisher
+     * @param StoreIdsManager $storeIdsManager
+     * @param SystemConfig $systemConfig
+     */
+    public function __construct(
+        PublisherInterface $publisher,
+        StoreIdsManager $storeIdsManager,
+        SystemConfig $systemConfig
+    ) {
         $this->publisher = $publisher;
+        $this->systemConfig = $systemConfig;
+        $this->storeIdsManager = $storeIdsManager;
     }
 
     /**
@@ -31,13 +50,22 @@ class CategoryWebhook implements ObserverInterface
      */
     public function execute(Observer $observer)
     {
+        if (!$this->systemConfig->isGrinWebhookActive()) {
+            return;
+        }
+
         $category = $observer->getDataObject();
-        $this->publisher->publish(
-            $this->buildType($category),
-            [
-                'id' => (int) $category->getId(),
-            ]
-        );
+        $storeIds = $this->storeIdsManager->filterStoreIds($category->getStoreIds());
+
+        foreach ($storeIds as $storeId) {
+            $this->publisher->publish(
+                $this->buildType($category),
+                [
+                    'id' => (int)$category->getId(),
+                    'store_id' => (int)$storeId,
+                ]
+            );
+        }
     }
 
     /**
