@@ -10,9 +10,6 @@ use Grin\Module\Api\Data\RequestInterface;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Serialize\SerializerInterface;
 
-/**
- * @see \Magento\Framework\MessageQueue\Consumer
- */
 class ConsumerHandler
 {
     /**
