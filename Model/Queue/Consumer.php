@@ -9,6 +9,7 @@ use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\Communication\ConfigInterface as CommunicationConfig;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NotFoundException;
+use Grin\Module\Model\Queue\InvokerFactory;
 use Magento\Framework\MessageQueue\CallbackInvokerInterface;
 use Magento\Framework\MessageQueue\ConnectionLostException;
 use Magento\Framework\MessageQueue\Consumer\ConfigInterface as ConsumerConfig;
@@ -25,6 +26,9 @@ use Magento\Framework\MessageQueue\QueueInterface;
 use Magento\Framework\MessageQueue\QueueRepository;
 use Psr\Log\LoggerInterface;
 
+/**
+ * @see \Magento\Framework\MessageQueue\Consumer
+ */
 class Consumer implements ConsumerInterface
 {
     /**
@@ -43,9 +47,9 @@ class Consumer implements ConsumerInterface
     private $messageEncoder;
 
     /**
-     * @var CallbackInvokerInterface
+     * @var InvokerFactory
      */
-    private $invoker;
+    private $invokerFactory;
 
     /**
      * @var MessageController
@@ -84,7 +88,7 @@ class Consumer implements ConsumerInterface
 
     /**
      * @param CommunicationConfig $communicationConfig
-     * @param CallbackInvokerInterface $invoker
+     * @param InvokerFactory $invokerFactory
      * @param EnvelopeFactory $envelopeFactory
      * @param MessageController $messageController
      * @param MessageEncoder $messageEncoder
@@ -98,7 +102,7 @@ class Consumer implements ConsumerInterface
      */
     public function __construct(
         CommunicationConfig $communicationConfig,
-        CallbackInvokerInterface $invoker,
+        InvokerFactory $invokerFactory,
         EnvelopeFactory $envelopeFactory,
         MessageController $messageController,
         MessageEncoder $messageEncoder,
@@ -111,7 +115,7 @@ class Consumer implements ConsumerInterface
         ResponseHandler $responseHandler
     ) {
         $this->communicationConfig = $communicationConfig;
-        $this->invoker = $invoker;
+        $this->invokerFactory = $invokerFactory;
         $this->envelopeFactory = $envelopeFactory;
         $this->messageController = $messageController;
         $this->messageEncoder = $messageEncoder;
@@ -132,7 +136,9 @@ class Consumer implements ConsumerInterface
         $queue = $this->configuration->getQueue();
 
         if (isset($maxNumberOfMessages)) {
-            $this->invoker->invoke($queue, $maxNumberOfMessages, $this->getTransactionCallback($queue));
+            $this->invokerFactory
+                ->get()
+                ->invoke($queue, $maxNumberOfMessages, $this->getTransactionCallback($queue));
             return;
         }
 
