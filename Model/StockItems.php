@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Grin\Module\Model;
 
 use Grin\Module\Api\StockItemsInterface;
+use Magento\CatalogInventory\Api\Data\StockItemCollectionInterface;
 use Magento\CatalogInventory\Api\StockItemCriteriaInterfaceFactory;
 use Magento\CatalogInventory\Model\ResourceModel\Stock\Item\StockItemCriteria;
 use Magento\CatalogInventory\Model\Stock\StockItemRepository;
+use Magento\Framework\Api\Filter;
+use Magento\Framework\Api\Search\FilterGroup;
 use Magento\Framework\Validation\ValidationException;
 use Magento\Framework\Api\SearchCriteriaInterface;
 
@@ -36,7 +39,9 @@ class StockItems implements StockItemsInterface
     }
 
     /**
-     * @inheritDoc
+     * @param SearchCriteriaInterface $searchCriteria
+     * @return StockItemCollectionInterface
+     * @throws ValidationException
      */
     public function getList(SearchCriteriaInterface $searchCriteria)
     {
@@ -53,9 +58,9 @@ class StockItems implements StockItemsInterface
         $criteria = $this->stockItemCriteriaFactory->create();
 
         $products = [];
-        /** @var \Magento\Framework\Api\Search\FilterGroup $filterGroup */
+        /** @var FilterGroup $filterGroup */
         foreach ($searchCriteria->getFilterGroups() as $filterGroup) {
-            /** @var \Magento\Framework\Api\Filter $filter */
+            /** @var Filter $filter */
             foreach ($filterGroup->getFilters() as $filter) {
                 if ($filter->getField() !== 'product_id') {
                     throw new ValidationException(__('Only filtering by productId is supported'));

@@ -26,7 +26,7 @@ class CategoryPublisherTest extends TestCase
     private $messageManager;
 
     /**
-     * @inheritDoc
+     * @return void
      */
     protected function setUp()
     {

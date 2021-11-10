@@ -10,7 +10,6 @@ use Magento\Framework\Communication\ConfigInterface as CommunicationConfig;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NotFoundException;
 use Grin\Module\Model\Queue\InvokerFactory;
-use Magento\Framework\MessageQueue\CallbackInvokerInterface;
 use Magento\Framework\MessageQueue\ConnectionLostException;
 use Magento\Framework\MessageQueue\Consumer\ConfigInterface as ConsumerConfig;
 use Magento\Framework\MessageQueue\ConsumerConfigurationInterface;
@@ -129,7 +128,8 @@ class Consumer implements ConsumerInterface
     }
 
     /**
-     * @inheritdoc
+     * @param null|int $maxNumberOfMessages
+     * @throws LocalizedException
      */
     public function process($maxNumberOfMessages = null)
     {

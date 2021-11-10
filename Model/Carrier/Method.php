@@ -92,9 +92,10 @@ class Method extends AbstractCarrier implements CarrierInterface
     }
 
     /**
-     * @inheritDoc
+     * @param RateRequest $request
+     * @return false|Result
+     * @throws LocalizedException
      */
-    // @codingStandardsIgnoreLine
     public function collectRates(RateRequest $request)
     {
         if (!$this->getConfigFlag('active') || !$this->isAllowed()) {

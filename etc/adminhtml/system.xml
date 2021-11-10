@@ -37,23 +37,30 @@
             </group>
             <group id="webhook" showInDefault="1" showInWebsite="1" sortOrder="30" translate="label">
                 <label>Webhooks</label>
-                <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1">
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1">
                     <label>Enable</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="url" translate="label" type="text" sortOrder="2" showInDefault="1">
+                <field id="url" translate="label" type="text" sortOrder="20" showInDefault="1">
                     <label>Url</label>
                     <validate>required-entry</validate>
                     <depends>
                         <field id="active">1</field>
                     </depends>
                 </field>
-                <field id="token" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1">
+                <field id="token" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1">
                     <label>Webhook authentication token</label>
                     <validate>required-entry</validate>
                     <depends>
                         <field id="active">1</field>
                     </depends>
+                </field>
+            </group>
+            <group id="sales_rule" showInDefault="1" showInWebsite="1" sortOrder="40" translate="label">
+                <label>Sales Rule</label>
+                <field id="token" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1">
+                    <label>Validation token</label>
+                    <validate>required-entry</validate>
                 </field>
             </group>
         </section>

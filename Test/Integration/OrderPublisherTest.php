@@ -23,7 +23,7 @@ class OrderPublisherTest extends TestCase
     private $messageManager;
 
     /**
-     * @inheritDoc
+     * @return void
      */
     protected function setUp()
     {

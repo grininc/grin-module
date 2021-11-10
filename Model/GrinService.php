@@ -71,7 +71,10 @@ class GrinService implements GrinServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * @param string $topic
+     * @param array $data
+     * @return string|null
+     * @throws LocalizedException
      */
     public function send(string $topic, array $data): ?string
     {
@@ -114,7 +117,7 @@ class GrinService implements GrinServiceInterface
     }
 
     /**
-     * @inheridoc
+     * @return bool
      */
     public function hasErrors(): bool
     {
