@@ -30,6 +30,7 @@ class ValidateByToken
      * @param $skipValidation
      * @param $couponCode
      * @return array
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function aroundApplyRules(
         RulesApplier $subject,

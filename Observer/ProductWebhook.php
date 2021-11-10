@@ -67,7 +67,6 @@ class ProductWebhook implements ObserverInterface
                 ]
             );
         }
-
     }
 
     /**

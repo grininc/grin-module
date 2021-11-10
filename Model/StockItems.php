@@ -74,6 +74,7 @@ class StockItems implements StockItemsInterface
                     break 2;
                 }
                 if ($filter->getConditionType() === 'in') {
+                    // phpcs:ignore Magento2.Performance.ForeachArrayMerge
                     $products = array_merge(explode(',', $filter->getValue()), $products);
 
                     break 2;
@@ -85,11 +86,8 @@ class StockItems implements StockItemsInterface
             throw new ValidationException(__('Please define at least one product filter'));
         }
 
-
         $criteria->setProductsFilter($products);
-
         $pageSize = $searchCriteria->getPageSize() ?: 100;
-
         $criteria->setLimit($pageSize * ($searchCriteria->getCurrentPage() - 1), $pageSize);
 
         return $criteria;
