@@ -34,7 +34,8 @@ class OrderPublisherTest extends TestCase
     }
 
     /**
-     * @magentoConfigFixture default_store grin_integration/webhook/active 1
+     * @magentoConfigFixture default/grin_integration/webhook/active 1
+     * @magentoConfigFixture default/grin_integration/webhook/token integration_tests
      * @magentoDataFixture createOrderFixture
      * @return void
      */
@@ -50,7 +51,8 @@ class OrderPublisherTest extends TestCase
     }
 
     /**
-     * @magentoConfigFixture default_store grin_integration/webhook/active 1
+     * @magentoConfigFixture default/grin_integration/webhook/active 1
+     * @magentoConfigFixture default/grin_integration/webhook/token integration_tests
      * @magentoDataFixture createOrderFixture
      * @return void
      */

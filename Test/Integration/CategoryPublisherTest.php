@@ -21,7 +21,7 @@ class CategoryPublisherTest extends TestCase
     private $json;
 
     /**
-     * @var MysqlQueueMessageManager|mixed
+     * @var MysqlQueueMessageManager
      */
     private $messageManager;
 
@@ -35,7 +35,8 @@ class CategoryPublisherTest extends TestCase
     }
 
     /**
-     * @magentoConfigFixture default_store grin_integration/webhook/active 1
+     * @magentoConfigFixture default/grin_integration/webhook/active 1
+     * @magentoConfigFixture default/grin_integration/webhook/token integration_tests
      * @magentoDataFixture createCategoryFixture
      * @return void
      */
@@ -51,7 +52,8 @@ class CategoryPublisherTest extends TestCase
     }
 
     /**
-     * @magentoConfigFixture default_store grin_integration/webhook/active 1
+     * @magentoConfigFixture default/grin_integration/webhook/active 1
+     * @magentoConfigFixture default/grin_integration/webhook/token integration_tests
      * @magentoDataFixture createCategoryFixture
      * @magentoDataFixture updateCategoryFixture
      * @return void
@@ -68,7 +70,8 @@ class CategoryPublisherTest extends TestCase
     }
 
     /**
-     * @magentoConfigFixture default_store grin_integration/webhook/active 1
+     * @magentoConfigFixture default/grin_integration/webhook/active 1
+     * @magentoConfigFixture default/grin_integration/webhook/token integration_tests
      * @magentoDataFixture createCategoryFixture
      * @magentoDataFixture deleteCategoryFixture
      * @return void

@@ -46,7 +46,7 @@ class ConsumerHandler
      * @param RequestInterface $request
      * @throws LocalizedException
      *
-     * @return ?string
+     * @return string|null
      */
     public function process(RequestInterface $request): ?string
     {
