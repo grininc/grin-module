@@ -42,7 +42,7 @@ class OrderWebhook implements ObserverInterface
     }
 
     /**
-     * @inheritDoc
+     * @param Observer $observer
      */
     public function execute(Observer $observer)
     {

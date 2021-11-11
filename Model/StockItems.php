@@ -80,11 +80,8 @@ class StockItems implements StockItemsInterface
             throw new ValidationException(__('Please define at least one product filter'));
         }
 
-
         $criteria->setProductsFilter($products);
-
         $pageSize = $searchCriteria->getPageSize() ?: 100;
-
         $criteria->setLimit($pageSize * ($searchCriteria->getCurrentPage() - 1), $pageSize);
 
         return $criteria;
