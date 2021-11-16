@@ -66,7 +66,9 @@ class StockItemWebhook implements ObserverInterface
 
         $stockItem = $observer->getDataObject();
         $product = $this->productRepository->getById((int)$stockItem->getProductId());
-        $storeIds = $this->storeIdsManager->filterStoreIds($product->getStoreIds());
+        $storeIds = $this->storeIdsManager->filterStoreIds(
+            $product->getStoreIds() ? $product->getStoreIds() : [$product->getStoreId()]
+        );
 
         foreach ($storeIds as $storeId) {
             $this->publisher->publish(
