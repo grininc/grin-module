@@ -55,6 +55,7 @@ class StockItemWebhook implements ObserverInterface
 
     /**
      * @param Observer $observer
+     * @return void
      * @throws NoSuchEntityException
      */
     public function execute(Observer $observer)

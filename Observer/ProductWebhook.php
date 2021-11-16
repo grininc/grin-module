@@ -46,6 +46,7 @@ class ProductWebhook implements ObserverInterface
 
     /**
      * @param Observer $observer
+     * @return void
      */
     public function execute(Observer $observer)
     {
