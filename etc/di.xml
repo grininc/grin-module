@@ -19,6 +19,7 @@
                 <item name="grin_webhook_active" xsi:type="string">grin_integration/webhook/active</item>
                 <item name="grin_webhook_url" xsi:type="string">grin_integration/webhook/url</item>
                 <item name="grin_webhook_token" xsi:type="string">grin_integration/webhook/token</item>
+                <item name="grin_sales_rule_token" xsi:type="string">grin_integration/sales_rule/token</item>
             </argument>
         </arguments>
     </type>
@@ -44,4 +45,9 @@
             <argument name="resourceModel" xsi:type="string">Magento\MysqlMq\Model\ResourceModel\MessageStatus</argument>
         </arguments>
     </virtualType>
+
+    <type name="Magento\SalesRule\Model\RulesApplier">
+        <plugin name="Grin_Module::validate-sales-rule-by-token"
+                type="Grin\Module\Plugin\Magento\SalesRule\Model\RulesApplier\ValidateByToken" />
+    </type>
 </config>

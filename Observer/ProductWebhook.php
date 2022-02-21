@@ -45,7 +45,8 @@ class ProductWebhook implements ObserverInterface
     }
 
     /**
-     * @inheritDoc
+     * @param Observer $observer
+     * @return void
      */
     public function execute(Observer $observer)
     {
@@ -54,7 +55,9 @@ class ProductWebhook implements ObserverInterface
         }
 
         $product = $observer->getDataObject();
-        $storeIds = $this->storeIdsManager->filterStoreIds($product->getStoreIds());
+        $storeIds = $this->storeIdsManager->filterStoreIds(
+            $product->getStoreIds() ? $product->getStoreIds() : [$product->getStoreId()]
+        );
 
         foreach ($storeIds as $storeId) {
             $this->publisher->publish(
@@ -66,7 +69,6 @@ class ProductWebhook implements ObserverInterface
                 ]
             );
         }
-
     }
 
     /**

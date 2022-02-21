@@ -8,5 +8,10 @@
             "PRIMARY": true,
             "GRIN_QUEUE_MESSAGE_STATUS_ID_QUEUE_MESSAGE_STATUS_ID": true
         }
+    },
+    "salesrule": {
+        "column": {
+            "is_grin_only": true
+        }
     }
 }
