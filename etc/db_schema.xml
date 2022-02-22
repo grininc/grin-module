@@ -25,12 +25,4 @@
                     referenceColumn="id"
                     onDelete="CASCADE"/>
     </table>
-    <table name="salesrule" resource="default" engine="innodb" comment="Salesrule">
-        <column xsi:type="smallint"
-                name="is_grin_only"
-                unsigned="true"
-                nullable="false"
-                default="0"
-                comment="Is GRIN Only"/>
-    </table>
 </schema>

@@ -6,8 +6,6 @@ namespace Grin\Module\Test\Integration;
 
 use Grin\Module\Test\Integration\Fixture\Order as OrderFixture;
 use Grin\Module\Test\Integration\Model\MysqlQueueMessageManager;
-use Grin\Module\Test\Integration\Model\OrderManager;
-use Magento\Sales\Model\Order;
 use Magento\TestFramework\Helper\Bootstrap;
 use PHPUnit\Framework\TestCase;
 use Magento\Framework\Serialize\Serializer\Json;
@@ -25,7 +23,7 @@ class OrderPublisherTest extends TestCase
     private $messageManager;
 
     /**
-     * @return void
+     * @inheritDoc
      */
     protected function setUp()
     {
@@ -34,8 +32,7 @@ class OrderPublisherTest extends TestCase
     }
 
     /**
-     * @magentoConfigFixture default/grin_integration/webhook/active 1
-     * @magentoConfigFixture default/grin_integration/webhook/token integration_tests
+     * @magentoConfigFixture default_store grin_integration/webhook/active 1
      * @magentoDataFixture createOrderFixture
      * @return void
      */
@@ -51,15 +48,14 @@ class OrderPublisherTest extends TestCase
     }
 
     /**
-     * @magentoConfigFixture default/grin_integration/webhook/active 1
-     * @magentoConfigFixture default/grin_integration/webhook/token integration_tests
+     * @magentoConfigFixture default_store grin_integration/webhook/active 1
      * @magentoDataFixture createOrderFixture
      * @return void
      */
     public function testUpdateOrder()
     {
-        $order = Bootstrap::getObjectManager()->get(OrderManager::class)->getLastOrder();
-        $order->setStatus(Order::STATE_HOLDED);
+        $order = Bootstrap::getObjectManager()->get(\Grin\Module\Test\Integration\Model\OrderManager::class)->getLastOrder();
+        $order->setStatus(\Magento\Sales\Model\Order::STATE_HOLDED);
         $order->save();
 
         $message = $this->messageManager->getLastMessage();

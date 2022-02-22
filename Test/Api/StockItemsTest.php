@@ -91,6 +91,7 @@ class StockItemsTest extends WebapiAbstract
         $this->_webApiCall($serviceInfo, $searchCriteria);
     }
 
+
     /**
      * @return array
      */

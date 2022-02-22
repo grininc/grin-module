@@ -10,7 +10,7 @@ use Magento\MysqlMq\Model\QueueManagement;
 class MessageStatus implements OptionSourceInterface
 {
     /**
-     * @return array[]
+     * @inheritDoc
      */
     public function toOptionArray(): array
     {

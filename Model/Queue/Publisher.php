@@ -51,8 +51,7 @@ class Publisher implements GrinPublisherInterface
     }
 
     /**
-     * @param string $topic
-     * @param array $data
+     * @inheritDoc
      */
     public function publish(string $topic, array $data)
     {

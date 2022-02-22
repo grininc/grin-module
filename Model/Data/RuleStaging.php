@@ -26,7 +26,7 @@ class RuleStaging implements RuleStagingInterface
     private $entityData;
 
     /**
-     * @return int|null
+     * @inheritDoc
      */
     public function getEntityId()
     {
@@ -34,8 +34,7 @@ class RuleStaging implements RuleStagingInterface
     }
 
     /**
-     * @param int $entityId
-     * @return $this|RuleStaging
+     * @inheritDoc
      */
     public function setEntityId(int $entityId)
     {
@@ -45,7 +44,7 @@ class RuleStaging implements RuleStagingInterface
     }
 
     /**
-     * @return StagingDataInterface
+     * @inheritDoc
      */
     public function getStagingData()
     {
@@ -53,8 +52,7 @@ class RuleStaging implements RuleStagingInterface
     }
 
     /**
-     * @param StagingDataInterface $stagingData
-     * @return $this|RuleStaging
+     * @inheritDoc
      */
     public function setStagingData(StagingDataInterface $stagingData)
     {
@@ -64,7 +62,7 @@ class RuleStaging implements RuleStagingInterface
     }
 
     /**
-     * @return RuleInterface
+     * @inheritDoc
      */
     public function getEntityData()
     {
@@ -72,8 +70,7 @@ class RuleStaging implements RuleStagingInterface
     }
 
     /**
-     * @param RuleInterface $entityData
-     * @return $this|RuleStaging
+     * @inheritDoc
      */
     public function setEntityData(RuleInterface $entityData)
     {

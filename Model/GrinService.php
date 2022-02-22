@@ -7,6 +7,7 @@ namespace Grin\Module\Model;
 use Grin\Module\Api\GrinServiceInterface;
 use Grin\Module\Model\Http\Client\Adapter\CurlFactory;
 use Grin\Module\Model\Http\UriFactory;
+use Grin\Module\Model\SystemConfig;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Serialize\Serializer\Json;
 use Psr\Log\LoggerInterface;
@@ -70,11 +71,7 @@ class GrinService implements GrinServiceInterface
     }
 
     /**
-     * @param string $topic
-     * @param array $data
-     * @return string|null
-     * @throws LocalizedException
-     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     * @inheritDoc
      */
     public function send(string $topic, array $data): ?string
     {
@@ -103,7 +100,6 @@ class GrinService implements GrinServiceInterface
             $curl->connect($uri->getHost(), $uri->getPort(), true);
             $curl->write('POST', $uri, 1.1, $this->getHeaders($payload, $topic), $payload);
             [$header, $body] = explode("\r\n\r\n", $curl->read(), 2);
-            // phpcs:disable Magento2.Functions.DiscouragedFunction.Discouraged
             $code = curl_getinfo($curl->getHandle(), CURLINFO_HTTP_CODE);
             $curl->close();
             if ($code !== 200) {
@@ -118,7 +114,7 @@ class GrinService implements GrinServiceInterface
     }
 
     /**
-     * @return bool
+     * @inheridoc
      */
     public function hasErrors(): bool
     {

@@ -5,12 +5,9 @@ declare(strict_types=1);
 namespace Grin\Module\Model;
 
 use Grin\Module\Api\StockItemsInterface;
-use Magento\CatalogInventory\Api\Data\StockItemCollectionInterface;
 use Magento\CatalogInventory\Api\StockItemCriteriaInterfaceFactory;
 use Magento\CatalogInventory\Model\ResourceModel\Stock\Item\StockItemCriteria;
 use Magento\CatalogInventory\Model\Stock\StockItemRepository;
-use Magento\Framework\Api\Filter;
-use Magento\Framework\Api\Search\FilterGroup;
 use Magento\Framework\Validation\ValidationException;
 use Magento\Framework\Api\SearchCriteriaInterface;
 
@@ -39,9 +36,7 @@ class StockItems implements StockItemsInterface
     }
 
     /**
-     * @param SearchCriteriaInterface $searchCriteria
-     * @return StockItemCollectionInterface
-     * @throws ValidationException
+     * @inheritDoc
      */
     public function getList(SearchCriteriaInterface $searchCriteria)
     {
@@ -58,9 +53,9 @@ class StockItems implements StockItemsInterface
         $criteria = $this->stockItemCriteriaFactory->create();
 
         $products = [];
-        /** @var FilterGroup $filterGroup */
+        /** @var \Magento\Framework\Api\Search\FilterGroup $filterGroup */
         foreach ($searchCriteria->getFilterGroups() as $filterGroup) {
-            /** @var Filter $filter */
+            /** @var \Magento\Framework\Api\Filter $filter */
             foreach ($filterGroup->getFilters() as $filter) {
                 if ($filter->getField() !== 'product_id') {
                     throw new ValidationException(__('Only filtering by productId is supported'));
@@ -74,7 +69,6 @@ class StockItems implements StockItemsInterface
                     break 2;
                 }
                 if ($filter->getConditionType() === 'in') {
-                    // phpcs:ignore Magento2.Performance.ForeachArrayMerge
                     $products = array_merge(explode(',', $filter->getValue()), $products);
 
                     break 2;
@@ -86,8 +80,11 @@ class StockItems implements StockItemsInterface
             throw new ValidationException(__('Please define at least one product filter'));
         }
 
+
         $criteria->setProductsFilter($products);
+
         $pageSize = $searchCriteria->getPageSize() ?: 100;
+
         $criteria->setLimit($pageSize * ($searchCriteria->getCurrentPage() - 1), $pageSize);
 
         return $criteria;
