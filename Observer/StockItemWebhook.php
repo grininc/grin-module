@@ -11,7 +11,6 @@ use Grin\Module\Model\WebhookStateInterface;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
-use Magento\Framework\Exception\NoSuchEntityException;
 
 class StockItemWebhook implements ObserverInterface
 {
@@ -54,9 +53,7 @@ class StockItemWebhook implements ObserverInterface
     }
 
     /**
-     * @param Observer $observer
-     * @return void
-     * @throws NoSuchEntityException
+     * @inheritDoc
      */
     public function execute(Observer $observer)
     {
@@ -66,9 +63,7 @@ class StockItemWebhook implements ObserverInterface
 
         $stockItem = $observer->getDataObject();
         $product = $this->productRepository->getById((int)$stockItem->getProductId());
-        $storeIds = $this->storeIdsManager->filterStoreIds(
-            $product->getStoreIds() ? $product->getStoreIds() : [$product->getStoreId()]
-        );
+        $storeIds = $this->storeIdsManager->filterStoreIds($product->getStoreIds());
 
         foreach ($storeIds as $storeId) {
             $this->publisher->publish(

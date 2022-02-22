@@ -16,20 +16,26 @@ use Magento\Quote\Model\Quote\Address\RateResult\MethodFactory;
 use Magento\Framework\App\State;
 use Magento\Shipping\Model\Carrier\AbstractCarrier;
 use Magento\Shipping\Model\Carrier\CarrierInterface;
+use Magento\Backend\App\Area\FrontNameResolver;
 use Magento\Framework\App\Action\Context;
 
 class Method extends AbstractCarrier implements CarrierInterface
 {
+    /**
+     * Shipment carrier code
+     */
     public const CODE = 'grininfluencershipping';
 
     /**
      * @var string
      */
+    // @codingStandardsIgnoreLine
     protected $_code = self::CODE;
 
     /**
      * @var bool
      */
+    // @codingStandardsIgnoreLine
     protected $_isFixed = true;
 
     /**
@@ -86,11 +92,9 @@ class Method extends AbstractCarrier implements CarrierInterface
     }
 
     /**
-     * @param RateRequest $request
-     * @return false|Result
-     * @throws LocalizedException
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @inheritDoc
      */
+    // @codingStandardsIgnoreLine
     public function collectRates(RateRequest $request)
     {
         if (!$this->getConfigFlag('active') || !$this->isAllowed()) {

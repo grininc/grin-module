@@ -24,7 +24,7 @@ class Request implements RequestInterface
     private $messageStatusId;
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getTopic(): string
     {
@@ -32,8 +32,7 @@ class Request implements RequestInterface
     }
 
     /**
-     * @param string $topic
-     * @return RequestInterface
+     * @inheritDoc
      */
     public function setTopic(string $topic): RequestInterface
     {
@@ -42,7 +41,7 @@ class Request implements RequestInterface
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getSerializedData(): string
     {
@@ -50,8 +49,7 @@ class Request implements RequestInterface
     }
 
     /**
-     * @param string $serializedData
-     * @return RequestInterface
+     * @inheritDoc
      */
     public function setSerializedData(string $serializedData): RequestInterface
     {
@@ -61,7 +59,7 @@ class Request implements RequestInterface
     }
 
     /**
-     * @return int|null
+     * @inheritDoc
      */
     public function getMessageStatusId(): ?int
     {
@@ -69,8 +67,7 @@ class Request implements RequestInterface
     }
 
     /**
-     * @param int $messageStatusId
-     * @return RequestInterface
+     * @inheritDoc
      */
     public function setMessageStatusId(int $messageStatusId): RequestInterface
     {

@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Grin\Module\Block\Checkout;
 
 use Grin\Module\Model\SystemConfig;
@@ -39,9 +37,9 @@ class CartWidget extends Template
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
-    public function toHtml(): string
+    public function toHtml()
     {
         if (!$this->systemConfig->isGrinCartWidgetActive()) {
             return '';

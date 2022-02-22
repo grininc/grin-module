@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace Grin\Module\Model\Queue;
 
+use Grin\Module\Model\Queue\Resource\ResponseHandler;
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\Communication\ConfigInterface as CommunicationConfig;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NotFoundException;
+use Grin\Module\Model\Queue\InvokerFactory;
+use Magento\Framework\MessageQueue\CallbackInvokerInterface;
 use Magento\Framework\MessageQueue\ConnectionLostException;
 use Magento\Framework\MessageQueue\Consumer\ConfigInterface as ConsumerConfig;
 use Magento\Framework\MessageQueue\ConsumerConfigurationInterface;
@@ -25,7 +28,6 @@ use Psr\Log\LoggerInterface;
 
 /**
  * @see \Magento\Framework\MessageQueue\Consumer
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class Consumer implements ConsumerInterface
 {
@@ -96,8 +98,7 @@ class Consumer implements ConsumerInterface
      * @param ConsumerConfigurationInterface $configuration
      * @param QueueRepository $queueRepository
      * @param LoggerInterface $logger
-     *
-     * @SuppressWarnings(PHPMD.ExcessiveParameterList)
+     * @param ResponseHandler $responseHandler
      */
     public function __construct(
         CommunicationConfig $communicationConfig,
@@ -110,7 +111,8 @@ class Consumer implements ConsumerInterface
         ConsumerConfig $consumerConfig,
         ConsumerConfigurationInterface $configuration,
         QueueRepository $queueRepository,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        ResponseHandler $responseHandler
     ) {
         $this->communicationConfig = $communicationConfig;
         $this->invokerFactory = $invokerFactory;
@@ -123,11 +125,11 @@ class Consumer implements ConsumerInterface
         $this->configuration = $configuration;
         $this->queueRepository = $queueRepository;
         $this->logger = $logger;
+        $this->responseHandler = $responseHandler;
     }
 
     /**
-     * @param null|int $maxNumberOfMessages
-     * @throws LocalizedException
+     * @inheritdoc
      */
     public function process($maxNumberOfMessages = null)
     {
@@ -215,13 +217,11 @@ class Consumer implements ConsumerInterface
             $messageSchemaType = $this->configuration->getMessageSchemaType($topicName);
             if ($messageSchemaType == CommunicationConfig::TOPIC_REQUEST_TYPE_METHOD) {
                 foreach ($handlers as $callback) {
-                    // phpcs:disable Magento2.Functions.DiscouragedFunction.Discouraged
                     $result = call_user_func_array($callback, $decodedMessage);
                     return $this->processSyncResponse($topicName, $result);
                 }
             } else {
                 foreach ($handlers as $callback) {
-                    // phpcs:disable Magento2.Functions.DiscouragedFunction.Discouraged
                     $result = call_user_func($callback, $decodedMessage);
                     if ($isSync) {
                         return $this->processSyncResponse($topicName, $result);

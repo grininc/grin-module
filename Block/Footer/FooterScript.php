@@ -30,9 +30,9 @@ class FooterScript extends Template
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
-    public function toHtml(): string
+    public function toHtml()
     {
         if (!$this->systemConfig->isGrinScriptActive()) {
             return '';

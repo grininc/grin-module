@@ -7,14 +7,13 @@ namespace Grin\Module\Controller\Adminhtml\Queue;
 use Magento\Backend\App\Action;
 use Magento\Framework\App\Action\HttpGetActionInterface as HttpGetActionInterface;
 use Magento\Framework\Controller\ResultFactory;
-use Magento\Framework\Controller\ResultInterface;
 
 class Messages extends Action implements HttpGetActionInterface
 {
     /**
-     * @return ResultInterface
+     * @inheritDoc
      */
-    public function execute(): ResultInterface
+    public function execute()
     {
         $resultPage = $this->resultFactory->create(ResultFactory::TYPE_PAGE);
         $resultPage->setActiveMenu('Magento_Backend::system');

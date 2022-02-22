@@ -4,7 +4,4 @@
         <attribute code="attribute_data"
                    type="Magento\Catalog\Api\Data\ProductAttributeInterface" />
     </extension_attributes>
-    <extension_attributes for="Magento\SalesRule\Api\Data\RuleInterface">
-        <attribute code="is_grin_only" type="bool" />
-    </extension_attributes>
 </config>

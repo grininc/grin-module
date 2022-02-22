@@ -10,16 +10,15 @@ use Magento\Framework\DataObject;
 class StagingData extends DataObject implements StagingDataInterface
 {
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getName()
     {
-        return (string) $this->getData(self::NAME);
+        return $this->getData(self::NAME);
     }
 
     /**
-     * @param string $name
-     * @return StagingDataInterface
+     * @inheritDoc
      */
     public function setName(string $name)
     {
@@ -27,16 +26,15 @@ class StagingData extends DataObject implements StagingDataInterface
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getDescription()
     {
-        return (string) $this->getData(self::DESCRIPTION);
+        return $this->getData(self::DESCRIPTION);
     }
 
     /**
-     * @param string $description
-     * @return StagingDataInterface
+     * @inheritDoc
      */
     public function setDescription(string $description)
     {
@@ -44,7 +42,7 @@ class StagingData extends DataObject implements StagingDataInterface
     }
 
     /**
-     * @return string|null
+     * @inheritDoc
      */
     public function getEndTime()
     {
@@ -52,8 +50,7 @@ class StagingData extends DataObject implements StagingDataInterface
     }
 
     /**
-     * @param string $endTime
-     * @return StagingDataInterface
+     * @inheritDoc
      */
     public function setEndTime(string $endTime)
     {
@@ -61,7 +58,7 @@ class StagingData extends DataObject implements StagingDataInterface
     }
 
     /**
-     * @return string
+     * @inheritDoc
      */
     public function getStartTime()
     {
@@ -69,8 +66,7 @@ class StagingData extends DataObject implements StagingDataInterface
     }
 
     /**
-     * @param string $startTime
-     * @return StagingDataInterface
+     * @inheritDoc
      */
     public function setStartTime(string $startTime)
     {

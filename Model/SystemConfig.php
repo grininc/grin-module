@@ -73,17 +73,4 @@ class SystemConfig
             $storeId
         );
     }
-
-    /**
-     * @param int|null $storeId (Optional)
-     * @return string
-     */
-    public function getSalesRuleToken(int $storeId = null): string
-    {
-        return (string) $this->scopeConfig->getValue(
-            $this->data['grin_sales_rule_token'] ?? '',
-            ScopeInterface::SCOPE_STORE,
-            $storeId
-        );
-    }
 }

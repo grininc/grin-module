@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Grin\Module\Model\Queue;
 
-use Grin\Module\Model\Queue\ResourceModel\ResponseHandler;
+use Grin\Module\Model\Queue\Resource\ResponseHandler;
 use Grin\Module\Api\GrinServiceInterface;
 use Grin\Module\Api\Data\RequestInterface;
 use Magento\Framework\Exception\LocalizedException;
@@ -46,7 +46,7 @@ class ConsumerHandler
      * @param RequestInterface $request
      * @throws LocalizedException
      *
-     * @return string|null
+     * @return ?string
      */
     public function process(RequestInterface $request): ?string
     {

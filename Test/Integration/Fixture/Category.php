@@ -19,9 +19,9 @@ class Category
         $category = Bootstrap::getObjectManager()->create(CatalogCategory::class);
         $category->isObjectNew(true);
         $category->setId(100)
-            ->setName('GRIN test Category 1')
+            ->setName('Category 1')
             ->setParentId(2)
-            ->setPath('1/2/100')
+            ->setPath('1/2/3')
             ->setLevel(2)
             ->setAvailableSortBy('name')
             ->setDefaultSortBy('name')
