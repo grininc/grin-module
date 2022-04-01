@@ -46,7 +46,8 @@ class CategoryWebhook implements ObserverInterface
     }
 
     /**
-     * @inheritDoc
+     * @param Observer $observer
+     * @return void
      */
     public function execute(Observer $observer)
     {

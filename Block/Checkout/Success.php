@@ -66,9 +66,9 @@ class Success extends Template
     }
 
     /**
-     * @inheritDoc
+     * @return string
      */
-    public function toHtml()
+    public function toHtml(): string
     {
         if (!$this->systemConfig->isGrinScriptActive()) {
             return '';
