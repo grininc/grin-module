@@ -3,31 +3,35 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="cataloginventory_stock_item_save_after">
-        <observer name="grin_wh_stock_item_save_after"
+        <observer name="Grin_Module::stock_item_save_after"
                   instance="Grin\Module\Observer\StockItemWebhook"/>
     </event>
     <event name="sales_order_save_after">
-        <observer name="grin_wh_order_save_after"
+        <observer name="Grin_Module::order_save_after"
                   instance="Grin\Module\Observer\OrderWebhook"/>
     </event>
     <event name="sales_order_save_before">
-        <observer name="grin_wh_order_save_before"
+        <observer name="Grin_Module::order_save_before"
                   instance="Grin\Module\Observer\OrderState"/>
     </event>
     <event name="catalog_product_save_after">
-        <observer name="grin_wh_product_save_after"
+        <observer name="Grin_Module::product_save_after"
                   instance="Grin\Module\Observer\ProductWebhook"/>
     </event>
     <event name="catalog_product_delete_after">
-        <observer name="grin_wh_product_delete_after"
+        <observer name="Grin_Module::product_delete_after"
                   instance="Grin\Module\Observer\ProductWebhook"/>
     </event>
     <event name="catalog_category_save_after">
-        <observer name="grin_wh_category_save_after"
+        <observer name="Grin_Module::category_save_after"
                   instance="Grin\Module\Observer\CategoryWebhook"/>
     </event>
     <event name="catalog_category_delete_after">
-        <observer name="grin_wh_category_delete_after"
+        <observer name="Grin_Module::category_delete_after"
                   instance="Grin\Module\Observer\CategoryWebhook"/>
+    </event>
+    <event name="salesrule_rule_save_before">
+        <observer name="Grin_Module::salesrule_rule_save_before"
+                  instance="Grin\Module\Observer\SalesRule" />
     </event>
 </config>

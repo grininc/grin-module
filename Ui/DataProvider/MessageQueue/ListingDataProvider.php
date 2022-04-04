@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Grin\Module\Ui\DataProvider\MessageQueue;
 
 use Grin\Module\Api\PublisherInterface;
+use Magento\Framework\Api\Search\SearchResultInterface;
 use Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider;
 
 class ListingDataProvider extends DataProvider
 {
     /**
-     * @inheritDoc
+     * @return SearchResultInterface
      */
     public function getSearchResult()
     {
