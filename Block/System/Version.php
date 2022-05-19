@@ -34,6 +34,7 @@ class Version extends AbstractBlock implements RendererInterface
     /**
      * @param AbstractElement $element
      * @return string
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function render(AbstractElement $element): string
     {
