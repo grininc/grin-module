@@ -28,7 +28,7 @@ class CategoryPublisherTest extends TestCase
     /**
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->json = Bootstrap::getObjectManager()->create(Json::class);
         $this->messageManager = Bootstrap::getObjectManager()->create(MysqlQueueMessageManager::class);

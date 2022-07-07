@@ -27,7 +27,7 @@ class OrderPublisherTest extends TestCase
     /**
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->messageManager = Bootstrap::getObjectManager()->create(MysqlQueueMessageManager::class);
         $this->json = Bootstrap::getObjectManager()->create(Json::class);
