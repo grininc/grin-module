@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Grin\Module\Model\Queue\Resource;
+namespace Grin\Module\Model\Queue\ResourceModel;
 
 use Magento\Framework\App\ResourceConnection;
 

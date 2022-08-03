@@ -26,16 +26,17 @@ class ProductPublisherTest extends TestCase
     private $messageManager;
 
     /**
-     * @inheritDoc
+     * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->messageManager = Bootstrap::getObjectManager()->create(MysqlQueueMessageManager::class);
         $this->json = Bootstrap::getObjectManager()->create(Json::class);
     }
 
     /**
-     * @magentoConfigFixture default_store grin_integration/webhook/active 1
+     * @magentoConfigFixture default/grin_integration/webhook/active 1
+     * @magentoConfigFixture default/grin_integration/webhook/token integration_tests
      * @magentoDataFixture createProductFixture
      * @return void
      */
@@ -62,7 +63,8 @@ class ProductPublisherTest extends TestCase
     }
 
     /**
-     * @magentoConfigFixture default_store grin_integration/webhook/active 1
+     * @magentoConfigFixture default/grin_integration/webhook/active 1
+     * @magentoConfigFixture default/grin_integration/webhook/token integration_tests
      * @magentoDataFixture createProductFixture
      * @magentoDataFixture updateProductFixture
      * @return void
@@ -80,7 +82,8 @@ class ProductPublisherTest extends TestCase
     }
 
     /**
-     * @magentoConfigFixture default_store grin_integration/webhook/active 1
+     * @magentoConfigFixture default/grin_integration/webhook/active 1
+     * @magentoConfigFixture default/grin_integration/webhook/token integration_tests
      * @magentoDataFixture createProductFixture
      * @magentoDataFixture deleteProductFixture
      * @return void
@@ -92,7 +95,6 @@ class ProductPublisherTest extends TestCase
 
         $body = $this->json->unserialize($message->getBody());
         $this->assertJson($body['serialized_data']);
-        $this->assertTrue($body['topic'] === 'catalog_product_deleted');
         $this->assertTrue($this->json->unserialize($body['serialized_data'])['id'] === 1000);
     }
 
