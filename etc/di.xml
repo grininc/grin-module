@@ -50,4 +50,5 @@
         <plugin name="Grin_Module::validate-sales-rule-by-token"
                 type="Grin\Module\Plugin\Magento\SalesRule\Model\RulesApplier\ValidateByToken" />
     </type>
+    <preference for="Grin\Module\Api\BulkProductInterface" type="Grin\Module\Model\Api\BulkProduct"/>
 </config>

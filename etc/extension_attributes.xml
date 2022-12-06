@@ -2,9 +2,12 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
     <extension_attributes for="Magento\ConfigurableProduct\Api\Data\OptionInterface">
         <attribute code="attribute_data"
-                   type="Magento\Catalog\Api\Data\ProductAttributeInterface" />
+                   type="Magento\Catalog\Api\Data\ProductAttributeInterface"/>
     </extension_attributes>
     <extension_attributes for="Magento\SalesRule\Api\Data\RuleInterface">
-        <attribute code="is_grin_only" type="bool" />
+        <attribute code="is_grin_only" type="bool"/>
+    </extension_attributes>
+    <extension_attributes for="Magento\Catalog\Api\Data\ProductInterface">
+        <attribute code="children" type="Magento\Catalog\Api\Data\ProductSearchResultsInterface"/>
     </extension_attributes>
 </config>
