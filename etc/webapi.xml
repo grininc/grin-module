@@ -13,4 +13,10 @@
             <resource ref="Magento_SalesRule::quote"/>
         </resources>
     </route>
+    <route url="/V1/grin/bulkProduct" method="GET">
+        <service class="\Grin\Module\Api\BulkProductInterface" method="getList"/>
+        <resources>
+            <resource ref="Magento_SalesRule::quote"/>
+        </resources>
+    </route>
 </routes>
