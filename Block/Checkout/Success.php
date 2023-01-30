@@ -101,6 +101,6 @@ class Success extends Template
     public function getSubtotal()
     {
         $order = $this->getOrder();
-        return $order->getBaseSubtotal() - abs($order->getDiscountAmount() ?: 0);
+        return $order->getBaseSubtotal() - abs((float)$order->getDiscountAmount() ?: 0);
     }
 }
