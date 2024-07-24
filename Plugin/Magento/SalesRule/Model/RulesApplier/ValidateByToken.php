@@ -41,7 +41,7 @@ class ValidateByToken
         $couponCode
     ): array {
         foreach ($rules as $rule) {
-            if (!$this->salesRuleValidator->isValid($rule, (string) $couponCode)) {
+            if (!$this->salesRuleValidator->isValid($rule, $couponCode)) {
                 return $proceed($item, [], $skipValidation, $couponCode);
             }
         }
