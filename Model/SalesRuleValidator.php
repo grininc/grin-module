@@ -40,7 +40,7 @@ class SalesRuleValidator
     {
         $code = $rule->getPrimaryCoupon()->getCode();
 
-        if (!is_null($code) && $rule->getData('is_grin_only') && in_array($code, $couponCode)) {
+        if ($code !== null && $rule->getData('is_grin_only') && in_array($code, $couponCode)) {
             return $this->request->getHeader(self::TOKEN_HEADER) === $this->systemConfig->getSalesRuleToken();
         }
 
